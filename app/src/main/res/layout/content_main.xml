@@ -5,17 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+    <TextView
+        android:layout_width="600dp"
+        android:layout_height="100dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <DatePicker
         android:id="@+id/datePicker"
         android:layout_width="match_parent"
         android:layout_height="436dp"
+        android:layout_marginLeft="30dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
+            android:id="@+id/background"
+            android:layout_width="600dp"
             android:layout_height="100dp"
             android:background="@color/colorAccent" />
 
@@ -52,84 +63,58 @@
             android:id="@+id/useMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="50dp"
             android:padding="10dp"
             android:text="0"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:layout_marginStart="100dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/leftTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
             android:layout_marginLeft="180dp"
             android:padding="10dp"
             android:text="Balance"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:layout_marginStart="180dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/leftMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="280dp"
             android:layout_marginLeft="280dp"
             android:padding="10dp"
             android:text="0"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:layout_marginStart="280dp" />
+            android:textSize="20sp" />
     </DatePicker>
 
-<!--    <fragment-->
-<!--        android:id="@+id/nav_host_fragment"-->
-<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        app:defaultNavHost="true"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.0"-->
-<!--        app:navGraph="@navigation/nav_graph" />-->
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintTop_toBottomOf="@+id/datePicker">
 
     <View
         android:id="@+id/Line"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:background="#403C3C"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/datePicker" />
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="vertical"
-    app:layout_constraintTop_toBottomOf="@+id/Line">
+        android:background="#231F1F" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerviewOne"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
-
-
-    <TextView
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:visibility="gone"
-        android:text="No data yet" />
-
-
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewOne"
+            android:layout_width="396dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
+            android:scrollbarSize="10dp"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/history_one" />
 
 </LinearLayout>
 

@@ -1,74 +1,78 @@
 package com.example.savemoneyproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
-import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.LogPrinter;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 
-public class SecondActivity extends AppCompatActivity {
-    private EditText historyText;
-    InputMethodManager imm;
+public class SecondActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private EditText historyView;
+    private Spinner mSpinner;
+    public static final String EXTRA_REPLY =
+            "com.example.android.roomwordssample.REPLY";
+    private String spinnerText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        historyView = (EditText) findViewById(R.id.editText);
+        mSpinner = (Spinner) findViewById(R.id.planets_spinner);
 
-        historyText = (EditText) findViewById(R.id.editText);
-        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+       if (mSpinner != null){
+           mSpinner.setOnItemSelectedListener(this);
+       }
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.planets_array, android.R.layout.simple_spinner_item);
 
+        adapter.setDropDownViewResource
+                (android.R.layout.simple_spinner_dropdown_item);
+        if (mSpinner != null) {
+            mSpinner.setAdapter(adapter);
+        }
 
-        final LayoutInflater inflater = getLayoutInflater();
-        final View mTextView = inflater.inflate(R.layout.history_one, null);
-        final TextView secondText = (TextView) mTextView.findViewById(R.id.listText);
-
-
-        final AppDataBase dataBase = Room.databaseBuilder(this, AppDataBase.class, "History-db")
-                .allowMainThreadQueries()
-                .build();
-
-        secondText.setText(dataBase.historyDao().getAll().toString());
-
-        findViewById(R.id.editText).setOnClickListener(new View.OnClickListener() {
+        final Button button = findViewById(R.id.addBtn);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataBase.historyDao().insert(new History(historyText.getText().toString()));
-                secondText.setText(dataBase.historyDao().getAll().toString());
-                hideKeyboard();
-                switch (v.getId())
-                {
-                    case R.id.secondActivity :
-                        break;
-
-                    case R.id.addBtn :
-                        break;
+                Intent replyIntent = new Intent();
+                if (TextUtils.isEmpty(historyView.getText())){
+                    setResult(RESULT_CANCELED, replyIntent);
+                } else {
+                    String history = historyView.getText().toString();
+                    replyIntent.putExtra(EXTRA_REPLY, spinnerText + "  " + history);
+                    setResult(RESULT_OK, replyIntent);
                 }
+                finish();
             }
         });
-
     }
 
-    private void hideKeyboard()
-    {
-        imm.hideSoftInputFromWindow(historyText.getWindowToken(), 0);
+    public void displayToast(String message) {
+        Toast.makeText(getApplicationContext(), message + " selected",
+                Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String spinnerLabel = adapterView.getItemAtPosition(i).toString();
+        spinnerText = spinnerLabel;
+        displayToast(spinnerLabel);
+    }
 
-    public void cancelBtn(View view) {
-        Intent intent  = new Intent(SecondActivity.this, MainActivity.class);
-        startActivity(intent);
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
+
+
+

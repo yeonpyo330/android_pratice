@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="52dp"
         android:layout_gravity="left"
-        android:entries="@array/money_action"
+        android:entries="@array/planets_array"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +30,7 @@
         android:layout_marginLeft="28dp"
         android:ems="10"
         android:hint="please fill in how much"
-        android:inputType="textPersonName" />
+        android:inputType="number" />
 
 </LinearLayout>
 
@@ -39,21 +39,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/addBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add" />
-
         <Button
-            android:id="@+id/cancelBtn"
-            android:onClick="cancelBtn"
-            android:layout_width="wrap_content"
+            android:id="@+id/addBtn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:layout_marginLeft="50dp"
-            tools:layout_editor_absoluteX="213dp"
-            tools:layout_editor_absoluteY="96dp" />
+            android:text="Add" />
 
     </LinearLayout>
 

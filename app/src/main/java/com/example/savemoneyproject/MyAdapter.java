@@ -1,7 +1,6 @@
 package com.example.savemoneyproject;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,59 +9,60 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    private final LinkedList<String> historyList;
-    private LayoutInflater mInflater;
+    private List<History> mHistory;
+    private final LayoutInflater mInflater;
 
-    public MyAdapter (Context context, LinkedList<String> hList) {
+    public MyAdapter (Context context) {
         mInflater = LayoutInflater.from(context);
-        this.historyList = hList;
     }
+
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View mItemVIew = mInflater.inflate(R.layout.history_one, parent, false);
-        return new MyViewHolder(mItemVIew, this);
+        View ItemView = mInflater.inflate(R.layout.history_one, parent, false);
+        return new MyViewHolder(ItemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        String mCurrent = historyList.get(position);
-        holder.historyItemView.setText(mCurrent);
 
-
+        if (mHistory != null) {
+            History current = mHistory.get(position);
+            holder.historyItemView.setText(current.getHistory());
+        } else {
+            holder.historyItemView.setText("No Data Yet");
+        }
     }
+
+    void setHistory(List<History> histories) {
+        mHistory = histories;
+        notifyDataSetChanged();
+    }
+
+
 
     @Override
     public int getItemCount() {
-        return historyList.size();
+        if (mHistory != null)
+            return mHistory.size();
+        else return 0;
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class MyViewHolder extends RecyclerView.ViewHolder{
         public final TextView historyItemView;
-        final MyAdapter mAdapter;
 
-        public MyViewHolder(@NonNull View itemView, MyAdapter adapter) {
+
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             historyItemView = itemView.findViewById(R.id.listText);
-            this.mAdapter = adapter;
-            itemView.setOnClickListener(this);
 
         }
 
-        @Override
-        public void onClick(View v) {
-            int mPosition = getLayoutPosition();
-            String element = historyList.get(mPosition);
-            historyList.set(mPosition, "Clicked" + element);
-            mAdapter.notifyDataSetChanged();
-
-        }
     }
 
 }
