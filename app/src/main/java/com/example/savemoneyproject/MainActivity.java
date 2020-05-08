@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private HistoryViewModel mHistoryViewModel;
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    private LinearLayoutManager mManager;
 
 
     @Override
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerviewOne);
         final MyAdapter adapter = new MyAdapter(this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true));
+        mManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true);
+        recyclerView.setLayoutManager(mManager);
+
 
 
         mHistoryViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);

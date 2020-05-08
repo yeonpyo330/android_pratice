@@ -8,9 +8,10 @@
 
 
     <TextView
-        android:layout_width="600dp"
+        android:layout_width="410dp"
         android:layout_height="100dp"
         android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

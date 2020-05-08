@@ -48,7 +48,7 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
                     setResult(RESULT_CANCELED, replyIntent);
                 } else {
                     String history = historyView.getText().toString();
-                    replyIntent.putExtra(EXTRA_REPLY, spinnerText + "  " + history);
+                    replyIntent.putExtra(EXTRA_REPLY, spinnerText + "  " + history + " $");
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();
