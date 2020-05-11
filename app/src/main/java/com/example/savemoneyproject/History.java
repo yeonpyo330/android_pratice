@@ -1,14 +1,16 @@
 package com.example.savemoneyproject;
 
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "history_table")
 public class History {
 
     @PrimaryKey(autoGenerate = true)
     private int number;
+    @ColumnInfo(name = "history")
     private String history;
 
 

@@ -74,11 +74,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.clear_data) {
-            // Add a toast just for confirmation
-            Toast.makeText(this, "Clearing the data...",
+            Toast.makeText(this, "Clearing history data..",
                     Toast.LENGTH_SHORT).show();
 
-            // Delete the existing data
             mHistoryViewModel.deleteAll();
             return true;
         }
@@ -90,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            String moneyType = data.getStringExtra(SecondActivity.EXTRA_REPLY2);
+            String actionType = data.getStringExtra(SecondActivity.EXTRA_REPLY2);
             String moneyInfo = data.getStringExtra(SecondActivity.EXTRA_REPLY1);
-            History history = new History(moneyType + "  " + moneyInfo + " ¥");
+            History history = new History(actionType + "  " + moneyInfo + " ¥");
             mHistoryViewModel.insert(history);
 
         } else {

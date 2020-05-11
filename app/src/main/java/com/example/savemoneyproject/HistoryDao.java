@@ -2,7 +2,6 @@ package com.example.savemoneyproject;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -13,7 +12,7 @@ import java.util.List;
 @Dao
 public interface HistoryDao {
 
-    @Query("SELECT * FROM History")
+    @Query("SELECT * FROM history_table")
     LiveData<List<History>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -22,6 +21,6 @@ public interface HistoryDao {
     @Update
     void update(History history);
 
-    @Query("DELETE FROM History")
+    @Query("DELETE FROM history_table")
     void deleteAll();
 }
