@@ -16,8 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SecondActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private EditText historyView;
     private Spinner mSpinner;
-    public static final String EXTRA_REPLY =
-            "com.example.android.roomwordssample.REPLY";
+    public static final String EXTRA_REPLY1 =
+            "com.example.android.roomwordssample.REPLY1";
+    public static final String EXTRA_REPLY2 =
+            "com.example.android.roomwordssample.REPLY2";
     private String spinnerText;
 
     @Override
@@ -39,6 +41,8 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
             mSpinner.setAdapter(adapter);
         }
 
+
+
         final Button button = findViewById(R.id.addBtn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +52,8 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
                     setResult(RESULT_CANCELED, replyIntent);
                 } else {
                     String history = historyView.getText().toString();
-                    replyIntent.putExtra(EXTRA_REPLY, spinnerText + "  " + history + " $");
+                    replyIntent.putExtra(EXTRA_REPLY1, history);
+                    replyIntent.putExtra(EXTRA_REPLY2, spinnerText);
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();

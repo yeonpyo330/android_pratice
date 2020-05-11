@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -34,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         RecyclerView recyclerView = findViewById(R.id.recyclerviewOne);
         final MyAdapter adapter = new MyAdapter(this);
         recyclerView.setAdapter(adapter);
-        mManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true);
+        mManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mManager);
-
 
 
         mHistoryViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
@@ -72,7 +73,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.clear_data) {
+            // Add a toast just for confirmation
+            Toast.makeText(this, "Clearing the data...",
+                    Toast.LENGTH_SHORT).show();
+
+            // Delete the existing data
+            mHistoryViewModel.deleteAll();
             return true;
         }
 
@@ -83,8 +90,11 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            History history = new History(data.getStringExtra(SecondActivity.EXTRA_REPLY));
+            String moneyType = data.getStringExtra(SecondActivity.EXTRA_REPLY2);
+            String moneyInfo = data.getStringExtra(SecondActivity.EXTRA_REPLY1);
+            History history = new History(moneyType + "  " + moneyInfo + " ¥");
             mHistoryViewModel.insert(history);
+
         } else {
             Toast.makeText(getApplicationContext(), "not saved", Toast.LENGTH_LONG).show();
         }

@@ -32,7 +32,7 @@
             android:background="@color/colorAccent" />
 
         <TextView
-            android:id="@+id/saveTitle"
+            android:id="@+id/income"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -41,7 +41,7 @@
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/saveMoney"
+            android:id="@+id/income_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
@@ -51,7 +51,7 @@
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/useTitle"
+            android:id="@+id/spend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -61,7 +61,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/useMoney"
+            android:id="@+id/spend_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
@@ -73,7 +73,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/leftTitle"
+            android:id="@+id/balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="180dp"
@@ -84,7 +84,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/leftMoney"
+            android:id="@+id/balance_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="280dp"

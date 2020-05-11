@@ -26,6 +26,10 @@ public class HistoryRepository {
         new insertAsyncTask(mHistoryDao).execute(history);
     }
 
+    public void deleteAll()  {
+        new deleteAllHistoryAsyncTask(mHistoryDao).execute();
+    }
+
     private static class insertAsyncTask extends AsyncTask<History, Void , Void> {
         private HistoryDao mAsyncTaskDao;
 
@@ -37,6 +41,20 @@ public class HistoryRepository {
         @Override
         protected Void doInBackground(final History... params) {
             mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    private static class deleteAllHistoryAsyncTask extends AsyncTask<Void, Void, Void> {
+        private HistoryDao mAsyncTaskDao;
+
+        deleteAllHistoryAsyncTask(HistoryDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mAsyncTaskDao.deleteAll();
             return null;
         }
     }

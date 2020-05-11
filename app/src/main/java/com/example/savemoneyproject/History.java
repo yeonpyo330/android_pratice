@@ -12,8 +12,10 @@ public class History {
     private String history;
 
 
+
     public History(String history) {
         this.history = history;
+
     }
 
     public int getNumber() {
@@ -32,11 +34,5 @@ public class History {
         this.history = history;
     }
 
-    @Override
-    public String toString() {
-        return "History{" +
-                "Number=" + number +
-                ", History='" + history + '\'' +
-                '}';
-    }
+
 }

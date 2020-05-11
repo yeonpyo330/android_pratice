@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface HistoryDao {
 
-    @Query("SELECT * FROM HISTORY")
+    @Query("SELECT * FROM History")
     LiveData<List<History>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -22,6 +22,6 @@ public interface HistoryDao {
     @Update
     void update(History history);
 
-    @Delete
-    void delete(History history);
+    @Query("DELETE FROM History")
+    void deleteAll();
 }
