@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private HistoryViewModel mHistoryViewModel;
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     private LinearLayoutManager mManager;
+    private TextView incomeView;
+    private TextView costView;
     private TextView balanceView;
     private String money;
 
@@ -35,8 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        balanceView = (TextView) findViewById(R.id.balance_money);
 
+        incomeView = (TextView) findViewById(R.id.income_money);
+        costView = (TextView) findViewById(R.id.cost_money);
+        balanceView = (TextView) findViewById(R.id.balance_money) ;
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerviewOne);
@@ -54,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
                 adapter.setHistory(histories);
             }
         });
+
+        incomeView.setText(mHistoryViewModel.getIncomeTotal().toString());
+        costView.setText(mHistoryViewModel.getCostTotal().toString());
+        balanceView.setText(Integer.parseInt(incomeView.getText().toString()) - Integer.parseInt(costView.getText().toString()));
 
 
         FloatingActionButton fab = findViewById(R.id.fab);

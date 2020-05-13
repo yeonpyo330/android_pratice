@@ -11,16 +11,28 @@ public class HistoryRepository {
 
     private HistoryDao mHistoryDao;
     private LiveData<List<History>> mAllHistory;
+    private LiveData<List<History>> mIncomeTotal;
+    private LiveData<List<History>> mCostTotal;
 
     HistoryRepository(Application application){
         AppDataBase db = AppDataBase.getDatabase(application);
         mHistoryDao = db.historyDao();
         mAllHistory = mHistoryDao.getAll();
+        mIncomeTotal = mHistoryDao.getIncomeTotal();
+        mCostTotal = mHistoryDao.getCostTotal();
     }
 
     LiveData<List<History>> getAllHistory() {
         return mAllHistory;
     }
+    LiveData<List<History>> getIncomeTotal() {
+        return mIncomeTotal;
+    }
+
+    LiveData<List<History>> getCostTotal() {
+        return mCostTotal;
+    }
+
 
     public void insertHistory (History history) {
         new insertAsyncTask(mHistoryDao).execute(history);

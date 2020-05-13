@@ -15,10 +15,10 @@ public interface HistoryDao {
     LiveData<List<History>> getAll();
 
     @Query("SELECT COALESCE(SUM(COALESCE(money,0)),0) FROM history_table WHERE type='Income'")
-    LiveData<History> getIncomeTotal();
+    LiveData<List<History>> getIncomeTotal();
 
     @Query("SELECT COALESCE(SUM(COALESCE(money,0)),0) FROM history_table WHERE type='Cost'")
-    LiveData<History> getCostTotal();
+    LiveData<List<History>> getCostTotal();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertHistory(History history);
