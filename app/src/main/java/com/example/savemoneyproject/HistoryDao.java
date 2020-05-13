@@ -14,8 +14,11 @@ public interface HistoryDao {
     @Query("SELECT * FROM history_table")
     LiveData<List<History>> getAll();
 
-    @Query("SELECT COALESCE(SUM(COALESCE(money,0)),0) FROM history_table ")
-    LiveData<History> getMoneyTotal();
+    @Query("SELECT COALESCE(SUM(COALESCE(money,0)),0) FROM history_table WHERE type='Income'")
+    LiveData<History> getIncomeTotal();
+
+    @Query("SELECT COALESCE(SUM(COALESCE(money,0)),0) FROM history_table WHERE type='Cost'")
+    LiveData<History> getCostTotal();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertHistory(History history);
