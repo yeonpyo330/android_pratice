@@ -1,6 +1,7 @@
 package com.example.savemoneyproject;
 
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -9,23 +10,26 @@ import androidx.room.PrimaryKey;
 public class History {
 
     @PrimaryKey(autoGenerate = true)
-    private int number;
+    private int id;
+    @ColumnInfo(name = "money")
+    private int money;
     @ColumnInfo(name = "history")
     private String history;
+    @ColumnInfo(name = "type")
+    private String type;
 
-
-
-    public History(String history) {
+    public History(String history, int money, String type) {
         this.history = history;
-
+        this.money = money;
+        this.type = type;
     }
 
-    public int getNumber() {
-        return number;
+    public int getId() {
+        return id;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getHistory() {
@@ -36,5 +40,20 @@ public class History {
         this.history = history;
     }
 
+    public int getMoney() {
+        return money;
+    }
 
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
+

@@ -25,8 +25,8 @@ public class HistoryViewModel extends AndroidViewModel {
         return mAllHistory;
     }
 
-    public void insert(History history) {
-        mRepository.insert(history);
+    public void insertHistory(History history) {
+        mRepository.insertHistory(history);
     }
 
     public void deleteAll() {mRepository.deleteAll();}

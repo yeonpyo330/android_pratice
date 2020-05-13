@@ -5,7 +5,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
@@ -15,11 +14,11 @@ public interface HistoryDao {
     @Query("SELECT * FROM history_table")
     LiveData<List<History>> getAll();
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(History history);
+    @Query("SELECT money FROM history_table ")
+    List<History> getMoneyTotal();
 
-    @Update
-    void update(History history);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertHistory(History history);
 
     @Query("DELETE FROM history_table")
     void deleteAll();

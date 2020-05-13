@@ -22,7 +22,7 @@ public class HistoryRepository {
         return mAllHistory;
     }
 
-    public void insert (History history) {
+    public void insertHistory (History history) {
         new insertAsyncTask(mHistoryDao).execute(history);
     }
 
@@ -40,7 +40,7 @@ public class HistoryRepository {
 
         @Override
         protected Void doInBackground(final History... params) {
-            mAsyncTaskDao.insert(params[0]);
+            mAsyncTaskDao.insertHistory(params[0]);
             return null;
         }
     }

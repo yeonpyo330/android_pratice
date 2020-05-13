@@ -9,7 +9,7 @@
     <string-array name="planets_array">
 
         <item>Income</item>
-        <item>Spend</item>
+        <item>Cost</item>
 
     </string-array>
 

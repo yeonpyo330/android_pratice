@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private HistoryViewModel mHistoryViewModel;
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     private LinearLayoutManager mManager;
-
+    private TextView balanceView;
+    private String money;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        balanceView = (TextView) findViewById(R.id.balance_money);
+
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerviewOne);
@@ -90,8 +93,16 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             String actionType = data.getStringExtra(SecondActivity.EXTRA_REPLY2);
             String moneyInfo = data.getStringExtra(SecondActivity.EXTRA_REPLY1);
-            History history = new History(actionType + "  " + moneyInfo + " ¥");
-            mHistoryViewModel.insert(history);
+            int moneyInt = Integer.parseInt(moneyInfo);
+            String income= "Income";
+            if (actionType != null && actionType.equals(income)) {
+                money = "+" + moneyInfo;
+            } else {
+                money = "-" + moneyInfo;
+            }
+
+            History history = new History(actionType + "  " + money + " ¥", moneyInt , actionType);
+            mHistoryViewModel.insertHistory(history);
 
         } else {
             Toast.makeText(getApplicationContext(), "not saved", Toast.LENGTH_LONG).show();

@@ -51,8 +51,8 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
                 if (TextUtils.isEmpty(historyView.getText())){
                     setResult(RESULT_CANCELED, replyIntent);
                 } else {
-                    String history = historyView.getText().toString();
-                    replyIntent.putExtra(EXTRA_REPLY1, history);
+                    String moneyInfo = historyView.getText().toString();
+                    replyIntent.putExtra(EXTRA_REPLY1, moneyInfo);
                     replyIntent.putExtra(EXTRA_REPLY2, spinnerText);
                     setResult(RESULT_OK, replyIntent);
                 }

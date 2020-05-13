@@ -54,10 +54,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        public final TextView historyItemView;
+        private final TextView historyItemView;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+        private MyViewHolder(@NonNull View itemView) {
             super(itemView);
             historyItemView = itemView.findViewById(R.id.listText);
 
