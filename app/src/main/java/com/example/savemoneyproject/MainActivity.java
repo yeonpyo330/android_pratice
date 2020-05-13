@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private HistoryViewModel mHistoryViewModel;
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     private LinearLayoutManager mManager;
-    private TextView incomeView;
-    private TextView costView;
-    private TextView balanceView;
+//    private TextView incomeView;
+//    private TextView costView;
+//    private TextView balanceView;
     private String money;
 
     @Override
@@ -38,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        incomeView = (TextView) findViewById(R.id.income_money);
-        costView = (TextView) findViewById(R.id.cost_money);
-        balanceView = (TextView) findViewById(R.id.balance_money) ;
+//        incomeView = (TextView) findViewById(R.id.income_money);
+//        costView = (TextView) findViewById(R.id.cost_money);
+//        balanceView = (TextView) findViewById(R.id.balance_money) ;
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerviewOne);
@@ -59,9 +62,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        incomeView.setText(mHistoryViewModel.getIncomeTotal().toString());
-        costView.setText(mHistoryViewModel.getCostTotal().toString());
-        balanceView.setText(Integer.parseInt(incomeView.getText().toString()) - Integer.parseInt(costView.getText().toString()));
+        //TODO : Can not work yet cause historyDao Query is dose not work
+//        incomeView.setText(mHistoryViewModel.getIncomeTotal().toString());
+//        costView.setText(mHistoryViewModel.getCostTotal().toString());
+//        balanceView.setText(Integer.parseInt(incomeView.getText().toString()) - Integer.parseInt(costView.getText().toString()));
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -98,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY/MM/dd HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        String time = simpleDateFormat.format(date);
+
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             String actionType = data.getStringExtra(SecondActivity.EXTRA_REPLY2);
             String moneyInfo = data.getStringExtra(SecondActivity.EXTRA_REPLY1);
@@ -109,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 money = "-" + moneyInfo;
             }
 
-            History history = new History(actionType + "  " + money + " ¥", moneyInt , actionType);
+            History history = new History(time + "  " + actionType + "  " + money + " ¥ " , moneyInt , actionType);
             mHistoryViewModel.insertHistory(history);
 
         } else {
