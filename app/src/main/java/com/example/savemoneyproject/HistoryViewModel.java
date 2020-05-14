@@ -13,6 +13,7 @@ public class HistoryViewModel extends AndroidViewModel {
     private HistoryRepository mRepository;
 
     private LiveData<List<History>> mAllHistory;
+    //TODO : Can not work yet
 //    private LiveData<List<History>> mIncomeTotal;
 //    private LiveData<List<History>> mCostTotal;
 
@@ -20,6 +21,7 @@ public class HistoryViewModel extends AndroidViewModel {
         super(application);
         mRepository = new HistoryRepository(application);
         mAllHistory = mRepository.getAllHistory();
+        //TODO : Can not work yet
 //        mIncomeTotal = mRepository.getIncomeTotal();
 //        mCostTotal = mRepository.getCostTotal();
     }
@@ -28,6 +30,7 @@ public class HistoryViewModel extends AndroidViewModel {
         return mAllHistory;
     }
 
+    //TODO : Can not work yet
 //    LiveData<List<History>> getIncomeTotal() {
 //        return mIncomeTotal;
 //    }

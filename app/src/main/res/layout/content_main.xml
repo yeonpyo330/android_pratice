@@ -17,7 +17,7 @@
 
     <DatePicker
         android:id="@+id/datePicker"
-        android:layout_width="match_parent"
+        android:layout_width="379dp"
         android:layout_height="436dp"
         android:layout_marginLeft="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,16 +96,16 @@
     </DatePicker>
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintTop_toBottomOf="@+id/datePicker">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/datePicker">
 
-    <View
-        android:id="@+id/Line"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="#231F1F" />
+        <View
+            android:id="@+id/Line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="#231F1F" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -117,6 +117,6 @@
             android:scrollbars="vertical"
             tools:listitem="@layout/history_one" />
 
-</LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

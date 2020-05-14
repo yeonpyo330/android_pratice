@@ -11,6 +11,7 @@ public class HistoryRepository {
 
     private HistoryDao mHistoryDao;
     private LiveData<List<History>> mAllHistory;
+    //TODO : Can not work yet
 //    private LiveData<List<History>> mIncomeTotal;
 //    private LiveData<List<History>> mCostTotal;
 
@@ -18,6 +19,7 @@ public class HistoryRepository {
         AppDataBase db = AppDataBase.getDatabase(application);
         mHistoryDao = db.historyDao();
         mAllHistory = mHistoryDao.getAll();
+        //TODO : Can not work yet
 //        mIncomeTotal = mHistoryDao.getIncomeTotal();
 //        mCostTotal = mHistoryDao.getCostTotal();
     }
@@ -25,10 +27,12 @@ public class HistoryRepository {
     LiveData<List<History>> getAllHistory() {
         return mAllHistory;
     }
+
+    //TODO : Can not work yet
 //    LiveData<List<History>> getIncomeTotal() {
 //        return mIncomeTotal;
 //    }
-//
+    //TODO : Can not work yet
 //    LiveData<List<History>> getCostTotal() {
 //        return mCostTotal;
 //    }
