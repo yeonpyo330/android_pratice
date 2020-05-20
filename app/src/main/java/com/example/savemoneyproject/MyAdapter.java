@@ -15,9 +15,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private List<History> mHistory;
     private final LayoutInflater mInflater;
+    private String mTodayDate;
+    private String selectedDate;
 
-    public MyAdapter (Context context) {
+    public MyAdapter (Context context, String selectedDate, String mTodayDate) {
         mInflater = LayoutInflater.from(context);
+        this.selectedDate = selectedDate;
+        this.mTodayDate = mTodayDate;
     }
 
 
@@ -30,12 +34,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
         if (mHistory != null) {
             History current = mHistory.get(position);
             holder.historyItemView.setText(current.getHistory());
         } else {
-            holder.historyItemView.setText("No Data Yet");
+            holder.historyItemView.setText("No date Yet");
         }
     }
 
