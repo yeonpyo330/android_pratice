@@ -12,16 +12,14 @@ import java.util.List;
 public interface HistoryDao {
 
 
-
     @Query("SELECT * FROM history_table")
     LiveData<List<History>> getAll();
 
-    @Query("SELECT SUM(money) FROM history_table WHERE type = 'Income'")
-    int getIncomeTotal();
+//    @Query("SELECT SUM(money) FROM history_table WHERE type = 'Income'")
+//    int getIncomeTotal();
 
     @Query("SELECT * FROM history_table WHERE date = (SELECT strftime('%Y%m%d',date('now')))")
     LiveData<List<History>> getTodayHistory();
-
 
     @Query("SELECT * FROM history_table WHERE date = :date")
     LiveData<List<History>> getSelectedDateHistory(String date);

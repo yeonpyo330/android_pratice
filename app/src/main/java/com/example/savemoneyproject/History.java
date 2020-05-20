@@ -24,7 +24,6 @@ public class History {
     private String date;
 
 
-
     public History(String history, int money, String type, String date) {
         this.history = history;
         this.money = money;

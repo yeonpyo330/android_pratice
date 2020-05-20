@@ -13,40 +13,28 @@ public class HistoryRepository {
     private LiveData<List<History>> mAllHistory;
     private LiveData<List<History>> mTodayHistory;
 
-    //TODO : Can not work yet
-//    private LiveData<List<History>> mIncomeTotal;
-//    private LiveData<List<History>> mCostTotal;
-
     HistoryRepository(Application application) {
         AppDataBase db = AppDataBase.getDatabase(application);
         mHistoryDao = db.historyDao();
         mAllHistory = mHistoryDao.getAll();
         mTodayHistory = mHistoryDao.getTodayHistory();
-//        mSelectedDayHistory = mHistoryDao.getSelectedDayHistory();
-        //TODO : Can not work yet
-//        mIncomeTotal = mHistoryDao.getIncomeTotal();
-//        mCostTotal = mHistoryDao.getCostTotal();
     }
-
-
 
 
     LiveData<List<History>> getAllHistory() {
         return mAllHistory;
     }
 
-    LiveData<List<History>> getTodayHistory() { return mTodayHistory; }
+    LiveData<List<History>> getTodayHistory() {
+        return mTodayHistory;
+    }
 
-    LiveData<List<History>> getSelectedDateHistory(String date) { return mHistoryDao.getSelectedDateHistory(date); }
+    LiveData<List<History>> getSelectedDateHistory(String date) {
+        return mHistoryDao.getSelectedDateHistory(date);
+    }
 
-    int getIncomeTotal() { return mHistoryDao.getIncomeTotal(); }
-
-
-
-//    LiveData<List<History>> getIncomeTotal() { return mIncomeTotal; }
-
-//    LiveData<List<History>> getCostTotal() {
-//        return mCostTotal;
+//    int getIncomeTotal() {
+//        return mHistoryDao.getIncomeTotal();
 //    }
 
 

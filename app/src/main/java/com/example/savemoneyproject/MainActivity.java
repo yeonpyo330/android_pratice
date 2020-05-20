@@ -2,12 +2,10 @@ package com.example.savemoneyproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView balanceView;
     private String money;
     private int todayDate, todayMonth, todayYear;
-    //    private int cYear, cMonth, cDate;
     private String selectedDate;
     private String mTodayDate;
 
@@ -78,15 +75,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-        incomeView.setText(mHistoryViewModel.getIncomeTotal());
+//        incomeView.setText(mHistoryViewModel.getIncomeTotal());
         costView.setText("50000");
         balanceView.setText("500000");
 
         toIntDate();
         setAdapter();
-//        HistoryRepository historyRepository = new HistoryRepository(getApplication());
-//        historyRepository.callSelectedDayHistory(sendDate());
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mManager);
 
 
-
         if (selectedDate.equals(mTodayDate)) {
 //            mHistoryViewModel.getAllHistory().observe(this, new Observer<List<History>>() {
 //                @Override
@@ -160,11 +153,11 @@ public class MainActivity extends AppCompatActivity {
             });
         } else {
             mHistoryViewModel.getSelectedDateHistory(sendDate()).observe(this, new Observer<List<History>>() {
-            @Override
-            public void onChanged(@Nullable final List<History> histories) {
-                adapter.setHistory(histories);
-            }
-        });
+                @Override
+                public void onChanged(@Nullable final List<History> histories) {
+                    adapter.setHistory(histories);
+                }
+            });
         }
 
 
@@ -172,10 +165,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
-//        Date mDate = new Date(System.currentTimeMillis());
-//        String time = simpleDateFormat.format(mDate);
 
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             String actionType = data.getStringExtra(SecondActivity.EXTRA_REPLY2);

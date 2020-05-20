@@ -18,7 +18,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private String mTodayDate;
     private String selectedDate;
 
-    public MyAdapter (Context context, String selectedDate, String mTodayDate) {
+    public MyAdapter(Context context, String selectedDate, String mTodayDate) {
         mInflater = LayoutInflater.from(context);
         this.selectedDate = selectedDate;
         this.mTodayDate = mTodayDate;
@@ -48,7 +48,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
 
-
     @Override
     public int getItemCount() {
         if (mHistory != null)
@@ -56,7 +55,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         else return 0;
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
         private final TextView historyItemView;
 
 
