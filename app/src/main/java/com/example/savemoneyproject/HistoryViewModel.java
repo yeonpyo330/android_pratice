@@ -34,10 +34,13 @@ public class HistoryViewModel extends AndroidViewModel {
         return mRepository.getSelectedDateHistory(date);
     }
 
-//    int getIncomeTotal() {
+//    public Integer getIncomeTotal() {
 //        return mRepository.getIncomeTotal();
 //    }
-
+//
+//    public Integer getCostTotal() {
+//        return mRepository.getCostTotal();
+//    }
 
     public void insertHistory(History history) {
         mRepository.insertHistory(history);

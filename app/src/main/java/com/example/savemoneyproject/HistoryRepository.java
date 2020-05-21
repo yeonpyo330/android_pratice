@@ -33,8 +33,12 @@ public class HistoryRepository {
         return mHistoryDao.getSelectedDateHistory(date);
     }
 
-//    int getIncomeTotal() {
+//    public Integer getIncomeTotal() {
 //        return mHistoryDao.getIncomeTotal();
+//    }
+//
+//    public Integer getCostTotal() {
+//        return mHistoryDao.getCostTotal();
 //    }
 
 

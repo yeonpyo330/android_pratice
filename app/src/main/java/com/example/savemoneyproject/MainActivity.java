@@ -2,6 +2,7 @@ package com.example.savemoneyproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,10 +75,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-//        incomeView.setText(mHistoryViewModel.getIncomeTotal());
-        costView.setText("50000");
-        balanceView.setText("500000");
+//        incomeView.setText(String.valueOf(mHistoryViewModel.getIncomeTotal()));
+//        costView.setText(String.valueOf(mHistoryViewModel.getCostTotal()));
+//        balanceView.setText(
+//                String.valueOf(mHistoryViewModel.getIncomeTotal() - mHistoryViewModel.getCostTotal()));
 
         toIntDate();
         setAdapter();

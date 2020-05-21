@@ -16,7 +16,10 @@ public interface HistoryDao {
     LiveData<List<History>> getAll();
 
 //    @Query("SELECT SUM(money) FROM history_table WHERE type = 'Income'")
-//    int getIncomeTotal();
+//    Integer getIncomeTotal();
+//
+//    @Query("SELECT SUM(money) FROM history_table WHERE type = 'Cost'")
+//    Integer getCostTotal();
 
     @Query("SELECT * FROM history_table WHERE date = (SELECT strftime('%Y%m%d',date('now')))")
     LiveData<List<History>> getTodayHistory();
