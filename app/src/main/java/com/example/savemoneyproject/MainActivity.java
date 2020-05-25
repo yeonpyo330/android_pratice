@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setAdapter() {
         RecyclerView recyclerView = findViewById(R.id.recyclerviewOne);
-        final MyAdapter adapter = new MyAdapter(this, selectedDate, mTodayDate);
+        final MyAdapter adapter = new MyAdapter(this);
         recyclerView.setAdapter(adapter);
         mManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mManager);

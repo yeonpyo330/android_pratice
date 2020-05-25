@@ -15,13 +15,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private List<History> mHistory;
     private final LayoutInflater mInflater;
-    private String mTodayDate;
-    private String selectedDate;
 
-    public MyAdapter(Context context, String selectedDate, String mTodayDate) {
+
+    public MyAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
-        this.selectedDate = selectedDate;
-        this.mTodayDate = mTodayDate;
     }
 
 
