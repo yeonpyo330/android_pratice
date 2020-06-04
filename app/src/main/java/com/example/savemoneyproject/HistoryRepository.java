@@ -12,12 +12,16 @@ public class HistoryRepository {
     private HistoryDao mHistoryDao;
     private LiveData<List<History>> mAllHistory;
     private LiveData<List<History>> mTodayHistory;
+    private LiveData<Integer> incomeTotal;
+    private LiveData<Integer> costTotal;
 
     HistoryRepository(Application application) {
         AppDataBase db = AppDataBase.getDatabase(application);
         mHistoryDao = db.historyDao();
         mAllHistory = mHistoryDao.getAll();
         mTodayHistory = mHistoryDao.getTodayHistory();
+        incomeTotal = mHistoryDao.getIncomeTotal();
+        costTotal = mHistoryDao.getCostTotal();
     }
 
 
@@ -33,13 +37,11 @@ public class HistoryRepository {
         return mHistoryDao.getSelectedDateHistory(date);
     }
 
-//    public Integer getIncomeTotal() {
-//        return mHistoryDao.getIncomeTotal();
-//    }
-//
-//    public Integer getCostTotal() {
-//        return mHistoryDao.getCostTotal();
-//    }
+    LiveData<Integer> getIncomeTotal() { return incomeTotal; }
+
+    LiveData<Integer> getCostTotal() {
+        return costTotal;
+    }
 
 
     public void insertHistory(History history) {

@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private int todayDate, todayMonth, todayYear;
     private String selectedDate;
     private String mTodayDate;
+    private int income,cost = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        incomeView = (TextView) findViewById(R.id.income_money);
-        costView = (TextView) findViewById(R.id.cost_money);
-        balanceView = (TextView) findViewById(R.id.balance_money);
 
 
         Calendar calendar = Calendar.getInstance();
@@ -75,10 +73,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        incomeView.setText(String.valueOf(mHistoryViewModel.getIncomeTotal()));
-//        costView.setText(String.valueOf(mHistoryViewModel.getCostTotal()));
-//        balanceView.setText(
-//                String.valueOf(mHistoryViewModel.getIncomeTotal() - mHistoryViewModel.getCostTotal()));
+
 
         toIntDate();
         setAdapter();
@@ -139,6 +134,28 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         mManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mManager);
+
+        incomeView = (TextView) findViewById(R.id.income_money);
+        costView = (TextView) findViewById(R.id.cost_money);
+        balanceView = (TextView) findViewById(R.id.balance_money);
+
+        mHistoryViewModel.getIncomeTotal().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                incomeView.setText(String.valueOf(integer));
+                income = integer;
+                balanceView.setText(String.valueOf(income-cost));
+            }
+        });
+
+        mHistoryViewModel.getCostTotal().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                costView.setText(String.valueOf(integer));
+                cost = integer;
+                balanceView.setText(String.valueOf(income-cost));
+            }
+        });
 
 
         if (selectedDate.equals(mTodayDate)) {

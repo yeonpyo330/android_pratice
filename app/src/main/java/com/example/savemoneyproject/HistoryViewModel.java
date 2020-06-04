@@ -14,12 +14,16 @@ public class HistoryViewModel extends AndroidViewModel {
 
     private LiveData<List<History>> mAllHistory;
     private LiveData<List<History>> mTodayHistory;
+    private LiveData<Integer> getIncomeTotal;
+    private LiveData<Integer> getCostTotal;
 
     public HistoryViewModel(@NonNull Application application) {
         super(application);
         mRepository = new HistoryRepository(application);
         mAllHistory = mRepository.getAllHistory();
         mTodayHistory = mRepository.getTodayHistory();
+        getIncomeTotal = mRepository.getIncomeTotal();
+        getCostTotal = mRepository.getCostTotal();
     }
 
     LiveData<List<History>> getAllHistory() {
@@ -34,13 +38,11 @@ public class HistoryViewModel extends AndroidViewModel {
         return mRepository.getSelectedDateHistory(date);
     }
 
-//    public Integer getIncomeTotal() {
-//        return mRepository.getIncomeTotal();
-//    }
-//
-//    public Integer getCostTotal() {
-//        return mRepository.getCostTotal();
-//    }
+    LiveData<Integer> getIncomeTotal() { return getIncomeTotal; }
+
+    LiveData<Integer> getCostTotal() {
+        return getCostTotal;
+    }
 
     public void insertHistory(History history) {
         mRepository.insertHistory(history);
