@@ -2,7 +2,6 @@ package com.example.savemoneyproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private int todayDate, todayMonth, todayYear;
     private String selectedDate;
     private String mTodayDate;
-    private int income,cost = 0;
+    private int income, cost = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
 
         Calendar calendar = Calendar.getInstance();
@@ -74,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         toIntDate();
         setAdapter();
 
@@ -86,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
             }
         });
-
-
     }
 
     @Override
@@ -144,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(Integer integer) {
                 incomeView.setText(String.valueOf(integer));
                 income = integer;
-                balanceView.setText(String.valueOf(income-cost));
+                balanceView.setText(String.valueOf(income - cost));
             }
         });
 
@@ -153,16 +147,12 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(Integer integer) {
                 costView.setText(String.valueOf(integer));
                 cost = integer;
-                balanceView.setText(String.valueOf(income-cost));
+                balanceView.setText(String.valueOf(income - cost));
             }
         });
 
 
         if (selectedDate.equals(mTodayDate)) {
-//            mHistoryViewModel.getAllHistory().observe(this, new Observer<List<History>>() {
-//                @Override
-//                public void onChanged(@Nullable final List<History> histories) {
-//                    adapter.setHistory(histories);
             mHistoryViewModel.getTodayHistory().observe(this, new Observer<List<History>>() {
                 @Override
                 public void onChanged(@Nullable final List<History> histories) {
@@ -177,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
 
     }
 
