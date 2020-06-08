@@ -17,9 +17,9 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
     private EditText historyView;
     private Spinner mSpinner;
     public static final String EXTRA_REPLY1 =
-            "com.example.android.roomwordssample.REPLY1";
+            "com.example.android.content.REPLY1";
     public static final String EXTRA_REPLY2 =
-            "com.example.android.roomwordssample.REPLY2";
+            "com.example.android.content.REPLY2";
     private String spinnerText;
 
     @Override
