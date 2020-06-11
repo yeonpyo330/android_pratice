@@ -6,31 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".MonthlyActivity">
 
-<LinearLayout
-    android:id="@+id/content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <Button
-        android:id="@+id/chose_month_btn"
+    <LinearLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/select_month"
-        android:textColor="@color/design_default_color_primary"
-        android:background="@color/colorAccent"
-        android:onClick="btnMonthYear"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/year_month"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/please_select_month"
-        android:textSize="20dp" />
+        <Button
+            android:id="@+id/chose_month_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:onClick="btnMonthYear"
+            android:text="@string/select_month"
+            android:textColor="@color/design_default_color_primary" />
+
+        <TextView
+            android:id="@+id/year_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/please_select_month"
+            android:textSize="20dp" />
 
 
-</LinearLayout>
+    </LinearLayout>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -9,35 +9,36 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     tools:context=".SecondActivity">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <Spinner
-        android:id="@+id/planets_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:layout_gravity="left"
-        android:entries="@array/planets_array"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:ems="10"
-        android:hint="please fill in how much"
-        android:inputType="number" />
-
-</LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <Spinner
+            android:id="@+id/planets_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_gravity="left"
+            android:entries="@array/planets_array"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:ems="10"
+            android:hint="please fill in how much"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
 
         <Button
             android:id="@+id/addBtn"
@@ -50,7 +51,6 @@
     <ListView
         android:id="@+id/listVIew2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
