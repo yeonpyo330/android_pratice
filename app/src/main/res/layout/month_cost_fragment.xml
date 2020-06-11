@@ -20,7 +20,7 @@
                 android:id="@+id/cost_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Cost : "
+                android:text=" Cost : "
                 android:textSize="20dp" />
 
             <TextView

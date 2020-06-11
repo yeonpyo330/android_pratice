@@ -19,7 +19,7 @@
                 android:id="@+id/income_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Income : "
+                android:text=" Income : "
                 android:textSize="20dp" />
 
             <TextView

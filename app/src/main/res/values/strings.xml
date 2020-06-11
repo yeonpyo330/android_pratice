@@ -21,6 +21,5 @@
     <string name="monthly_cost">Monthly Cost</string>
     <string name="monthly_history">Monthly History</string>
     <string name="select_month">Select Month</string>
-    <string name="please_select_month">Please Select Month :</string>
     <string name="show_monthly_history">Show Monthly History</string>
 </resources>
