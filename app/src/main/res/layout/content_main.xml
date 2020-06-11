@@ -129,12 +129,21 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerviewOne"
             android:layout_width="396dp"
-            android:layout_height="150dp"
+            android:layout_height="140dp"
             android:layout_margin="10dp"
             android:scrollbarSize="10dp"
             android:scrollbars="vertical"
             tools:listitem="@layout/history_one" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/monthly_history_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:text="@string/monthly_history" />
+
 
 </LinearLayout>

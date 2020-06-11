@@ -17,4 +17,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="there_is_no_data_yet">There is no data yet</string>
     <string name="clear_all_data">Clear All History</string>
+    <string name="monthly_income">Monthly Income</string>
+    <string name="monthly_cost">Monthly Cost</string>
+    <string name="monthly_history">Monthly History</string>
 </resources>

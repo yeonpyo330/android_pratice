@@ -37,6 +37,23 @@ public class HistoryRepository {
         return mHistoryDao.getSelectedDateHistory(date);
     }
 
+    LiveData<List<History>> getMonthIncomeHistory(String date) {
+        return mHistoryDao.getSelectedMonthIncomeHistory(date);
+    }
+
+    LiveData<List<History>> getMonthCostHistory(String date) {
+        return mHistoryDao.getSelectedMonthCostHistory(date);
+    }
+
+
+    LiveData<Integer> getMonthlyIncomeTotal(String date) {
+        return mHistoryDao.getMonthlyIncomeTotal(date);
+    }
+
+    LiveData<Integer> getMonthlyCostTotal(String date) {
+        return mHistoryDao.getMonthlyCostTotal(date);
+    }
+
     LiveData<Integer> getIncomeTotal() { return incomeTotal; }
 
     LiveData<Integer> getCostTotal() {

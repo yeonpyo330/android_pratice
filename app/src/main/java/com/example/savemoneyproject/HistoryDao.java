@@ -18,6 +18,12 @@ public interface HistoryDao {
     @Query("SELECT coalesce(sum(coalesce(money,0)),0) FROM history_table WHERE type = 'Income'")
     LiveData<Integer> getIncomeTotal();
 
+    @Query("SELECT coalesce(sum(coalesce(money,0)),0) FROM history_table WHERE type = 'Income' and date like :month||'%'")
+    LiveData<Integer> getMonthlyIncomeTotal(String month);
+
+    @Query("SELECT coalesce(sum(coalesce(money,0)),0) FROM history_table WHERE type = 'Cost' and date like :month||'%'")
+    LiveData<Integer> getMonthlyCostTotal(String month);
+
     @Query("SELECT coalesce(sum(coalesce(money,0)),0) FROM history_table WHERE type = 'Cost'")
     LiveData<Integer> getCostTotal();
 
@@ -26,6 +32,12 @@ public interface HistoryDao {
 
     @Query("SELECT * FROM history_table WHERE date = :date")
     LiveData<List<History>> getSelectedDateHistory(String date);
+
+    @Query("SELECT * FROM history_table WHERE type = 'Income' and date like :month||'%'")
+    LiveData<List<History>> getSelectedMonthIncomeHistory(String month);
+
+    @Query("SELECT * FROM history_table WHERE type = 'Cost' and date like :month||'%'")
+    LiveData<List<History>> getSelectedMonthCostHistory(String month);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertHistory(History history);

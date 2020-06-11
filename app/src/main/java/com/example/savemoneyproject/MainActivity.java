@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +17,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         Calendar calendar = Calendar.getInstance();
         todayDate = calendar.get(Calendar.DATE);
         todayMonth = calendar.get(Calendar.MONTH) + 1;
@@ -70,9 +68,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         toIntDate();
         setAdapter();
+
+        Button monthly_history_btn = findViewById(R.id.monthly_history_button);
+        monthly_history_btn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (MainActivity.this, MonthlyActivity.class);
+                startActivity(intent);
+            }
+        });
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
             }
         });
+
     }
 
     @Override
@@ -105,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+//  Select Date
     public void toIntDate() {
         selectedDate = "";
         if (todayMonth < 10 && todayDate >= 10) {
@@ -118,10 +127,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     public String sendDate() {
         return selectedDate;
     }
 
+//  Set adapter to recyclerview
     public void setAdapter() {
         RecyclerView recyclerView = findViewById(R.id.recyclerviewOne);
         final MyAdapter adapter = new MyAdapter(this);
