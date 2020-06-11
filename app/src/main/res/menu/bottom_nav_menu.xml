@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_Income"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="@string/monthly_income" />
+
+
+    <item
+        android:id="@+id/navigation_Cost"
+        android:icon="@drawable/item_remove"
+        android:title="@string/monthly_cost" />
+
+
+</menu>

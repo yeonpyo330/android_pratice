@@ -142,8 +142,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
-        android:textColor="@color/design_default_color_primary_dark"
-        android:text="@string/monthly_history" />
+        android:textColor="@color/design_default_color_primary"
+        android:text="@string/show_monthly_history" />
 
 
 </LinearLayout>
