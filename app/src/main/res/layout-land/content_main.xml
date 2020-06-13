@@ -107,6 +107,14 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
 
+                <TextView
+                    android:id="@+id/weather_data"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#F3FFE9E9"
+                    android:textSize="20sp" />
+
             </LinearLayout>
 
 

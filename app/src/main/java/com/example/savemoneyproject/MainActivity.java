@@ -1,7 +1,12 @@
 package com.example.savemoneyproject;
 
+import android.accessibilityservice.AccessibilityService;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,6 +14,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +23,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -24,6 +31,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,16 +46,23 @@ public class MainActivity extends AppCompatActivity {
     private TextView incomeView;
     private TextView costView;
     private TextView balanceView;
+    private TextView weatherData;
     private String money;
     private int todayDate, todayMonth, todayYear;
     private String selectedDate;
     private String mTodayDate;
     private int income, cost = 0;
+    public static String BaseUrl = "http://api.openweathermap.org/";
+    public static String AppId = "0ee1e3eadd152b696e4e6773ea9b3c8c";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getCurrentData("Tokyo");
+
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,11 +92,11 @@ public class MainActivity extends AppCompatActivity {
         setAdapter();
 
         Button monthly_history_btn = findViewById(R.id.monthly_history_button);
-        monthly_history_btn.setOnClickListener(new View.OnClickListener(){
+        monthly_history_btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (MainActivity.this, MonthlyActivity.class);
+                Intent intent = new Intent(MainActivity.this, MonthlyActivity.class);
                 startActivity(intent);
             }
         });
@@ -113,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//  Select Date
+    //  Select Date
     public void toIntDate() {
         selectedDate = "";
         if (todayMonth < 10 && todayDate >= 10) {
@@ -132,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         return selectedDate;
     }
 
-//  Set adapter to recyclerview
+    //  Set adapter to recyclerview
     public void setAdapter() {
         RecyclerView recyclerView = findViewById(R.id.recyclerviewOne);
         final MyAdapter adapter = new MyAdapter(this);
@@ -203,5 +223,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void getCurrentData(final String name) {
+        weatherData = findViewById(R.id.weather_data);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BaseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        WeatherService weatherService = retrofit.create(WeatherService.class);
+
+        Call<WeatherResponse> call = weatherService.getCurrentWeatherData(name);
+
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                if (response.code() == 200) {
+                    WeatherResponse weatherResponse = (WeatherResponse) response.body();
+                    weatherData.setText(weatherResponse.getSys().getCountry()
+                            + " " + "Tokyo : " + weatherResponse.getMain().getTemp() + "℃");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull Throwable t) {
+                weatherData.setText("No data");
+            }
+        });
+
+
+    }
 }
 
