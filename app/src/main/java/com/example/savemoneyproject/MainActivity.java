@@ -1,9 +1,13 @@
 package com.example.savemoneyproject;
 
 import android.accessibilityservice.AccessibilityService;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -12,11 +16,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -41,7 +47,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private HistoryViewModel mHistoryViewModel;
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    private ConnectivityManager connectivityManager;
+    public static final int NEW_ACTIVITY_REQUEST_CODE = 1;
     private LinearLayoutManager mManager;
     private TextView incomeView;
     private TextView costView;
@@ -56,10 +63,13 @@ public class MainActivity extends AppCompatActivity {
     public static String AppId = "0ee1e3eadd152b696e4e6773ea9b3c8c";
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         getCurrentData("Tokyo");
 
@@ -101,14 +111,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button addBtn = findViewById(R.id.btn_add);
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent, NEW_ACTIVITY_REQUEST_CODE);
             }
         });
+
+        Button alarmBtn = findViewById(R.id.btn_alarm);
+        alarmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AlarmActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(NetworkReceiver, intentFilter);
 
     }
 
@@ -204,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == NEW_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             String actionType = data.getStringExtra(SecondActivity.EXTRA_REPLY2);
             String moneyInfo = data.getStringExtra(SecondActivity.EXTRA_REPLY1);
             int moneyInt = Integer.parseInt(moneyInfo);
@@ -246,11 +269,61 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call call, @NonNull Throwable t) {
-                weatherData.setText("No data");
+                if (NetworkAvailable()) {
+                    weatherData.setText("No data");
+                } else {
+                    weatherData.setText("No Network");
+                }
+
             }
         });
+    }
 
+    private BroadcastReceiver NetworkReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (NetworkAvailable())
+                NetworkState();
+            else
+                Toast.makeText(MainActivity.this, "No Network", Toast.LENGTH_SHORT).show();
+        }
+    };
 
+    private boolean NetworkAvailable() {
+        try {
+            Thread.sleep(600);
+            connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connectivityManager != null) {
+                // Get Network info
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                // Check network status
+                if (networkInfo != null || networkInfo.isAvailable()) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private void NetworkState() {
+        NetworkInfo.State mobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
+        NetworkInfo.State wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
+        // Mobile status
+        if (mobile == NetworkInfo.State.CONNECTED || mobile == NetworkInfo.State.CONNECTING) {
+            Toast.makeText(this, "Current Network Status - Mobile", Toast.LENGTH_SHORT).show();
+        }
+        //Wifi status
+        if (wifi == NetworkInfo.State.CONNECTED || wifi == NetworkInfo.State.CONNECTING) {
+            Toast.makeText(this, "Current Network Status - Wi-Fi", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(NetworkReceiver);
     }
 }
 
