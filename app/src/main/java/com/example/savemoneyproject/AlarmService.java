@@ -3,18 +3,9 @@ package com.example.savemoneyproject;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.os.SystemClock;
-import android.util.Log;
-import android.view.WindowManager;
-
-import androidx.appcompat.app.AlertDialog;
-
-import java.util.Date;
 
 public class AlarmService extends Service {
     public int anHour;
