@@ -138,18 +138,43 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/top">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
-                app:srcCompat="@drawable/item_add" />
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="5dp"
+                    android:text="Add History"
+                    android:layout_marginLeft="5dp"
+                    android:background="@color/colorAccent"
+                    android:textColor="@color/cardview_light_background"/>
+
+                <Button
+                    android:id="@+id/btn_alarm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="5dp"
+                    android:text="Set Alarm"
+                    android:layout_marginLeft="5dp"
+                    android:background="@color/colorAccent"
+                    android:textColor="@color/cardview_light_background"/>
+
+            </LinearLayout>
+
+
 
             <View
                 android:id="@+id/Line"
                 android:layout_width="10dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
                 android:background="@color/colorAccent" />
 
 
