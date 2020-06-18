@@ -29,42 +29,14 @@ public class AlarmService extends Service {
         super.onCreate();
     }
 
-    private Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(AlarmService.this);
-            builder.setTitle("提醒");
-            builder.setMessage("该补水啦");
-            builder.setCancelable(false);
-
-            final AlertDialog dialog = builder.create();
-            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-            dialog.show();
-
-        }
-    };
-
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         return null;
     }
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.d("LongRunningService", "executed at " + new Date().
-//                        toString());
-//                 mHandler.sendEmptyMessage(1);
-//            }
-//        }).start();
-
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         int time = intent.getIntExtra("Time",2);
         anHour = time * 60 * 1000;
