@@ -17,7 +17,7 @@ public class MonthlyActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
     private FragmentManager fragmentManager;
     private TextView yearMonth;
-    private int year =2020 ,month;
+    private int year =2020 ,month; // todo : avoid using static value
     private String selectedMonth;
 
 
@@ -37,11 +37,14 @@ public class MonthlyActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             fragmentManager = getSupportFragmentManager();
             transaction = fragmentManager.beginTransaction();
+
+            // todo : avoid creating a instance everytime
             switch (item.getItemId()) {
                 case R.id.navigation_Income:
                     transaction.replace(R.id.content, new MonthIncomeFragment());
                     transaction.commit();
                     return true;
+
                 case R.id.navigation_Cost:
                     transaction.replace(R.id.content, new MonthCostFragment());
                     transaction.commit();
@@ -93,6 +96,8 @@ public class MonthlyActivity extends AppCompatActivity {
     }
 
     //  Select month
+
+    // todo : consider using regex
     public void toIntDate() {
         selectedMonth = "";
         if (month < 10 ) {

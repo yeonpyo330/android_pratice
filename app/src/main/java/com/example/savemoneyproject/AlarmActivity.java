@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 
 // todo : please convert this with view binding
+// todo : optimize && clean unused code
 public class AlarmActivity extends AppCompatActivity {
 
     private Button startService;

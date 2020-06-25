@@ -44,6 +44,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
+// todo : use view binding
 public class MainActivity extends AppCompatActivity {
 
     private HistoryViewModel mHistoryViewModel;
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        // todo : please get the data based on the user's current location using gps
         getCurrentData("Tokyo");
 
 
@@ -157,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //  Select Date
+    // todo : convert to regex
     public void toIntDate() {
         selectedDate = "";
         if (todayMonth < 10 && todayDate >= 10) {
@@ -178,6 +182,9 @@ public class MainActivity extends AppCompatActivity {
     //  Set adapter to recyclerview
     public void setAdapter() {
         RecyclerView recyclerView = findViewById(R.id.recyclerviewOne);
+
+        // todo : create a new instance everytime it is called might leak memory
+        // todo : please consider separating setting the view part and update logic
         final MyAdapter adapter = new MyAdapter(this);
         recyclerView.setAdapter(adapter);
         mManager = new LinearLayoutManager(this);
@@ -246,8 +253,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // todo : not working
     private void getCurrentData(final String name) {
         weatherData = findViewById(R.id.weather_data);
+
+        //todo : consider using this as singleton class
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BaseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -255,6 +265,8 @@ public class MainActivity extends AppCompatActivity {
 
         WeatherService weatherService = retrofit.create(WeatherService.class);
 
+
+        // todo : consider using RxJava/RxAndroid
         Call<WeatherResponse> call = weatherService.getCurrentWeatherData(name);
 
         call.enqueue(new Callback() {

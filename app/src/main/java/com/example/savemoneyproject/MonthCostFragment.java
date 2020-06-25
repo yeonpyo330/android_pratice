@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+// todo : monthlycost fragment && monthincomefragment -> view are identical
+// todo : please consider abstract class or find a way to merge it
 public class MonthCostFragment extends Fragment {
 
     private MonthCostViewModel mViewModel;

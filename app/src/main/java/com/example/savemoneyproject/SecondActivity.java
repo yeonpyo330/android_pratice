@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+// todo : use view binding
 public class SecondActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private EditText historyView;
     private Spinner mSpinner;

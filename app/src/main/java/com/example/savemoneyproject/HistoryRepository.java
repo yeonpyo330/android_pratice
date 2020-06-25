@@ -69,6 +69,9 @@ public class HistoryRepository {
         new deleteAllHistoryAsyncTask(mHistoryDao).execute();
     }
 
+
+    //todo : AsyncTask is deprecated since API30. Please replace AsyncTask with other asynchronous task
+    //todo : Something like RxJava / RxAndroid is the most popular one
     private static class insertAsyncTask extends AsyncTask<History, Void, Void> {
         private HistoryDao mAsyncTaskDao;
 

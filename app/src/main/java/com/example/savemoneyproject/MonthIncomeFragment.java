@@ -44,6 +44,7 @@ public class MonthIncomeFragment extends Fragment {
         }
     }
 
+    // todo : separate setting and update logic
     public void setAdapter() {
         mRecyclerViewIncome = view.findViewById(R.id.income_recyclerview);
         final MyAdapter adapter = new MyAdapter(getActivity());
