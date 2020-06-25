@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+// todo : please convert this with view binding
 public class AlarmActivity extends AppCompatActivity {
 
     private Button startService;
