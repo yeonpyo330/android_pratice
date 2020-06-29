@@ -17,7 +17,7 @@ public class MonthlyActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
     private FragmentManager fragmentManager;
     private TextView yearMonth;
-    private int year =2020 ,month; // todo : avoid using static value
+    private int year, month; // todo : avoid using static value
     private String selectedMonth;
 
 
@@ -83,14 +83,8 @@ public class MonthlyActivity extends AppCompatActivity {
                     public void onMonthChanged(int selectedMonth) {
                         month = selectedMonth + 1;
                         toIntDate();
-
                     }
                 })
-//                .setOnYearChangedListener(new MonthPickerDialog.OnYearChangedListener() {
-//                    @Override
-//                    public void onYearChanged(int selectedYear) {
-//                    }
-//                })
                 .build().show();
 
     }
@@ -99,6 +93,7 @@ public class MonthlyActivity extends AppCompatActivity {
 
     // todo : consider using regex
     public void toIntDate() {
+        year = 2020;
         selectedMonth = "";
         if (month < 10 ) {
             selectedMonth = ("" + year + "0" + month);

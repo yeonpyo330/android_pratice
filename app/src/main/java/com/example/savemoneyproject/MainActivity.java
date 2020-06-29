@@ -1,46 +1,34 @@
 package com.example.savemoneyproject;
 
-import android.accessibilityservice.AccessibilityService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.savemoneyproject.databinding.ContentMainBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Scheduler;
-import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
@@ -55,28 +43,24 @@ public class MainActivity extends AppCompatActivity {
 
     private HistoryViewModel mHistoryViewModel;
     private ConnectivityManager connectivityManager;
+    private MyAdapter adapter;
     public static final int NEW_ACTIVITY_REQUEST_CODE = 1;
+    private ContentMainBinding bindingContent;
     private LinearLayoutManager mManager;
-    private TextView incomeView;
-    private TextView costView;
-    private TextView balanceView;
-    private TextView weatherData;
     private String money;
     private int todayDate, todayMonth, todayYear;
     private String selectedDate;
     private String mTodayDate;
     private int income, cost = 0;
     public static String BaseUrl = "http://api.openweathermap.org/";
-    public static String AppId = "0ee1e3eadd152b696e4e6773ea9b3c8c";
-
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        bindingContent = ContentMainBinding.inflate(getLayoutInflater());
+        View contentView = bindingContent.getRoot();
+        setContentView(contentView);
 
         // todo : please get the data based on the user's current location using gps
         getCurrentData("Tokyo");
@@ -93,9 +77,7 @@ public class MainActivity extends AppCompatActivity {
         mHistoryViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
         mTodayDate = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
 
-
-        CalendarView calendarView = (CalendarView) findViewById(R.id.calendar);
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        bindingContent.calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int y, int m, int d) {
                 todayYear = y;
@@ -108,9 +90,11 @@ public class MainActivity extends AppCompatActivity {
 
         toIntDate();
         setAdapter();
+        getIncomeTotal();
+        getCostTotal();
+//        showCurrentHistory();
 
-        Button monthly_history_btn = findViewById(R.id.monthly_history_button);
-        monthly_history_btn.setOnClickListener(new View.OnClickListener() {
+        bindingContent.monthlyHistoryButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -119,8 +103,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button addBtn = findViewById(R.id.btn_add);
-        addBtn.setOnClickListener(new View.OnClickListener() {
+        bindingContent.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
@@ -128,8 +111,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button alarmBtn = findViewById(R.id.btn_alarm);
-        alarmBtn.setOnClickListener(new View.OnClickListener() {
+        bindingContent.btnAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AlarmActivity.class);
@@ -186,64 +168,66 @@ public class MainActivity extends AppCompatActivity {
 
     //  Set adapter to recyclerview
     public void setAdapter() {
-        RecyclerView recyclerView = findViewById(R.id.recyclerviewOne);
-
         // todo : create a new instance everytime it is called might leak memory
         // todo : please consider separating setting the view part and update logic
-        final MyAdapter adapter = new MyAdapter(this);
-        recyclerView.setAdapter(adapter);
+        adapter = new MyAdapter(this);
+        bindingContent.recyclerviewOne.setAdapter(adapter);
         mManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mManager);
+        bindingContent.recyclerviewOne.setLayoutManager(mManager);
+    }
 
-        incomeView = (TextView) findViewById(R.id.income_money);
-        costView = (TextView) findViewById(R.id.cost_money);
-        balanceView = (TextView) findViewById(R.id.balance_money);
 
 //        mHistoryViewModel.getIncomeTotal().observe(this, new Observer<Integer>() {
 //            @Override
 //            public void onChanged(Integer integer) {
-//                incomeView.setText(String.valueOf(integer));
+//                bindingContent.incomeMoney.setText(String.valueOf(integer));
 //                income = integer;
-//                balanceView.setText(String.valueOf(income - cost));
+//                bindingContent.balanceMoney.setText(String.valueOf(income - cost));
 //            }
 //        });
 
+    public void getIncomeTotal() {
         mHistoryViewModel.getIncomeTotal()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Integer>() {
                                @Override
                                public void accept(Integer integer) throws Exception {
-                                   incomeView.setText(String.valueOf(integer));
+                                   bindingContent.incomeMoney.setText(String.valueOf(integer));
                                    income = integer;
-                                   balanceView.setText(String.valueOf(income - cost));
+                                   bindingContent.balanceMoney.setText(String.valueOf(income - cost));
                                }
                            }
                 );
 
+    }
+
 //        mHistoryViewModel.getCostTotal().observe(this, new Observer<Integer>() {
 //            @Override
 //            public void onChanged(Integer integer) {
-//                costView.setText(String.valueOf(integer));
+//                bindingContent.costMoney.setText(String.valueOf(integer));
 //                cost = integer;
-//                balanceView.setText(String.valueOf(income - cost));
+//                bindingContent.balanceMoney.setText(String.valueOf(income - cost));
 //            }
 //        });
 
+    public void getCostTotal() {
         mHistoryViewModel.getCostTotal()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Integer>() {
                                @Override
                                public void accept(Integer integer) throws Exception {
-                                   costView.setText(String.valueOf(integer));
+                                   bindingContent.costMoney.setText(String.valueOf(integer));
                                    cost = integer;
-                                   balanceView.setText(String.valueOf(income - cost));
+                                   bindingContent.balanceMoney.setText(String.valueOf(income - cost));
                                }
                            }
                 );
+    }
 
 
+//    public void showCurrentHistory(){
 //        if (selectedDate.equals(mTodayDate)) {
 //            mHistoryViewModel.getTodayHistory().observe(this, new Observer<List<History>>() {
 //                @Override
@@ -259,8 +243,7 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            });
 //        }
-
-    }
+//    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -286,7 +269,6 @@ public class MainActivity extends AppCompatActivity {
 
     // todo : not working
     private void getCurrentData(final String name) {
-        weatherData = findViewById(R.id.weather_data);
 
         //todo : consider using this as singleton class
         Retrofit retrofit = new Retrofit.Builder()
@@ -305,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (response.code() == 200) {
                     WeatherResponse weatherResponse = (WeatherResponse) response.body();
-                    weatherData.setText(weatherResponse.getSys().getCountry()
+                    bindingContent.weatherData.setText(weatherResponse.getSys().getCountry()
                             + " " + "Tokyo : " + weatherResponse.getMain().getTemp() + "℃");
                 }
             }
@@ -313,9 +295,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call call, @NonNull Throwable t) {
                 if (NetworkAvailable()) {
-                    weatherData.setText("No data");
+                    bindingContent.weatherData.setText("No data");
                 } else {
-                    weatherData.setText("No Network");
+                    bindingContent.weatherData.setText("No Network");
                 }
 
             }

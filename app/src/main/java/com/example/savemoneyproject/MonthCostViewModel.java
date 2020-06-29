@@ -4,9 +4,8 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-
 import java.util.List;
+import io.reactivex.rxjava3.core.Flowable;
 
 public class MonthCostViewModel extends AndroidViewModel {
     private HistoryRepository mRepository;
@@ -17,11 +16,11 @@ public class MonthCostViewModel extends AndroidViewModel {
     }
 
 
-    LiveData<Integer> getMonthlyCostTotal(String date) {
+    Flowable<Integer> getMonthlyCostTotal(String date) {
         return mRepository.getMonthlyCostTotal(date);
     }
 
-    LiveData<List<History>> getMonthCostHistory(String date) {
+    Flowable<List<History>> getMonthCostHistory(String date) {
         return mRepository.getMonthCostHistory(date);
     }
 }

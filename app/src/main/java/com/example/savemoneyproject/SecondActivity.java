@@ -13,9 +13,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.savemoneyproject.databinding.ActivitySecondBinding;
+
 
 // todo : use view binding
 public class SecondActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    private ActivitySecondBinding bindingSecond;
     private EditText historyView;
     private Spinner mSpinner;
     public static final String EXTRA_REPLY1 =
@@ -27,20 +31,20 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
-        historyView = (EditText) findViewById(R.id.editText);
-        mSpinner = (Spinner) findViewById(R.id.planets_spinner);
+        bindingSecond = ActivitySecondBinding.inflate(getLayoutInflater());
+        View secondView = bindingSecond.getRoot();
+        setContentView(secondView);
 
-       if (mSpinner != null){
-           mSpinner.setOnItemSelectedListener(this);
+       if (bindingSecond.planetsSpinner != null){
+           bindingSecond.planetsSpinner.setOnItemSelectedListener(this);
        }
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.planets_array, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource
                 (android.R.layout.simple_spinner_dropdown_item);
-        if (mSpinner != null) {
-            mSpinner.setAdapter(adapter);
+        if (bindingSecond.planetsSpinner != null) {
+            bindingSecond.planetsSpinner.setAdapter(adapter);
         }
 
 
@@ -50,10 +54,10 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                 Intent replyIntent = new Intent();
-                if (TextUtils.isEmpty(historyView.getText())){
+                if (TextUtils.isEmpty(bindingSecond.editText.getText())){
                     setResult(RESULT_CANCELED, replyIntent);
                 } else {
-                    String moneyInfo = historyView.getText().toString();
+                    String moneyInfo = bindingSecond.editText.getText().toString();
                     replyIntent.putExtra(EXTRA_REPLY1, moneyInfo);
                     replyIntent.putExtra(EXTRA_REPLY2, spinnerText);
                     setResult(RESULT_OK, replyIntent);

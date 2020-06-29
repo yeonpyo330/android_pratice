@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.savemoneyproject.databinding.MonthCostFragmentBinding;
+
 import java.util.List;
 
 // todo : monthlycost fragment && monthincomefragment -> view are identical
@@ -23,8 +25,8 @@ import java.util.List;
 public class MonthCostFragment extends Fragment {
 
     private MonthCostViewModel mViewModel;
-    private RecyclerView mRecyclerViewIncome;
-    private View view;
+    private MyAdapter adapter;
+    private MonthCostFragmentBinding monthCostBinding;
     private String selectedMonth;
 
 
@@ -35,8 +37,8 @@ public class MonthCostFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-         view = inflater.inflate(R.layout.month_cost_fragment, container, false);
-         return view;
+        monthCostBinding = MonthCostFragmentBinding.inflate(inflater, container,false);
+        return monthCostBinding.getRoot();
     }
 
     @Override
@@ -46,30 +48,34 @@ public class MonthCostFragment extends Fragment {
         selectedMonth = ((MonthlyActivity)getActivity()).sendMonth();
         if (selectedMonth != null){
             setAdapter();
+//            getCostTotal();
+//            getCostHistory();
         }
     }
 
     public void setAdapter() {
-        mRecyclerViewIncome = view.findViewById(R.id.cost_recyclerview);
-        final MyAdapter adapter = new MyAdapter(getActivity());
-        mRecyclerViewIncome.setAdapter(adapter);
+        adapter = new MyAdapter(getActivity());
+        monthCostBinding.costRecyclerview.setAdapter(adapter);
         RecyclerView.LayoutManager mManager = new LinearLayoutManager(getActivity());
-        mRecyclerViewIncome.setLayoutManager(mManager);
+        monthCostBinding.costRecyclerview.setLayoutManager(mManager);
+    }
 
-        final TextView monthlyCost = view.findViewById(R.id.cost_total);
-
-        mViewModel.getMonthlyCostTotal(selectedMonth).observe(getViewLifecycleOwner() ,new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                monthlyCost.setText(String.valueOf(integer));
-            }
-        });
-
-        mViewModel.getMonthCostHistory(selectedMonth).observe(getViewLifecycleOwner(), new Observer<List<History>>() {
-            @Override
-            public void onChanged(List<History> histories) {
-                adapter.setHistory(histories);
-            }
-        });
-
-}}
+//    public void getCostTotal() {
+//        mViewModel.getMonthlyCostTotal(selectedMonth).observe(getViewLifecycleOwner() ,new Observer<Integer>() {
+//            @Override
+//            public void onChanged(Integer integer) {
+//                monthCostBinding.costTotal.setText(String.valueOf(integer));
+//            }
+//        });
+//    }
+//
+//    public void getCostHistory() {
+//
+//        mViewModel.getMonthCostHistory(selectedMonth).observe(getViewLifecycleOwner(), new Observer<List<History>>() {
+//            @Override
+//            public void onChanged(List<History> histories) {
+//                adapter.setHistory(histories);
+//            }
+//        });
+//    }
+}

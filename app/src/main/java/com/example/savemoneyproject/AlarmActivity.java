@@ -13,33 +13,33 @@ import com.example.savemoneyproject.databinding.ActivityAlarmBinding;
 public class AlarmActivity extends AppCompatActivity {
 
     public static int TIME;
-    private ActivityAlarmBinding binding;
+    private ActivityAlarmBinding bindingAlarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityAlarmBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
+        bindingAlarm = ActivityAlarmBinding.inflate(getLayoutInflater());
+        View view = bindingAlarm.getRoot();
         setContentView(view);
 
-        binding.startService.setOnClickListener(new View.OnClickListener() {
+        bindingAlarm.startService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent startIntent = new Intent(AlarmActivity.this,AlarmService.class);
-                TIME = Integer.parseInt(binding.time.getText().toString().trim());
+                TIME = Integer.parseInt(bindingAlarm.time.getText().toString().trim());
 
                 startIntent.putExtra("Time",TIME);
-                binding.alarmText.setText("You will receive the message " + binding.time.getText().toString().trim() + "min later");
+                bindingAlarm.alarmText.setText("You will receive the message " + bindingAlarm.time.getText().toString().trim() + "min later");
                 Toast.makeText(AlarmActivity.this,"Start Notify",Toast.LENGTH_SHORT).show();
                 startService(startIntent);
             }
         });
 
-        binding.stopService.setOnClickListener(new View.OnClickListener() {
+        bindingAlarm.stopService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent stopIntent = new Intent(AlarmActivity.this,AlarmService.class);
-                binding.alarmText.setText("Alarm Canceled");
+                bindingAlarm.alarmText.setText("Alarm Canceled");
                 Toast.makeText(AlarmActivity.this,"Stop Notify",Toast.LENGTH_SHORT).show();
                 stopService(stopIntent);
             }

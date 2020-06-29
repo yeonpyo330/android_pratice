@@ -14,24 +14,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.savemoneyproject.databinding.MonthIncomeFragmentBinding;
+
 import java.util.List;
 
 public class MonthIncomeFragment extends Fragment {
 
-    private View view;
     private MonthIncomeViewModel mViewModel;
-    private RecyclerView mRecyclerViewIncome;
+    private MyAdapter adapter;
+    private MonthIncomeFragmentBinding monthIncomeBinding;
     private String selectedMonth;
-
-    public static MonthIncomeFragment newInstance() {
-        return new MonthIncomeFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.month_income_fragment, container, false);
-        return view;
+        monthIncomeBinding = MonthIncomeFragmentBinding.inflate(inflater,container,false);
+        return monthIncomeBinding.getRoot();
     }
 
     @Override
@@ -41,34 +39,35 @@ public class MonthIncomeFragment extends Fragment {
         selectedMonth = ((MonthlyActivity) getActivity()).sendMonth();
         if (selectedMonth != null) {
             setAdapter();
+//            getIncomeTotal();
+//            getIncomeHistory();
         }
     }
 
     // todo : separate setting and update logic
     public void setAdapter() {
-        mRecyclerViewIncome = view.findViewById(R.id.income_recyclerview);
-        final MyAdapter adapter = new MyAdapter(getActivity());
-        mRecyclerViewIncome.setAdapter(adapter);
+        adapter = new MyAdapter(getActivity());
+        monthIncomeBinding.incomeRecyclerview.setAdapter(adapter);
         RecyclerView.LayoutManager mManager = new LinearLayoutManager(getActivity());
-        mRecyclerViewIncome.setLayoutManager(mManager);
-
-        final TextView monthlyIncome = view.findViewById(R.id.income_total);
+        monthIncomeBinding.incomeRecyclerview.setLayoutManager(mManager); }
 
 
-        mViewModel.getMonthlyIncomeTotal(selectedMonth).observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                monthlyIncome.setText(String.valueOf(integer));
-            }
-        });
-
-        mViewModel.getMonthIncomeHistory(selectedMonth).observe(getViewLifecycleOwner(), new Observer<List<History>>() {
-            @Override
-            public void onChanged(List<History> histories) {
-                adapter.setHistory(histories);
-            }
-        });
-
-    }
+//    public void getIncomeTotal(){
+//        mViewModel.getMonthlyIncomeTotal(selectedMonth).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+//            @Override
+//            public void onChanged(Integer integer) {
+//                monthIncomeBinding.incomeTotal.setText(String.valueOf(integer));
+//            }
+//        });
+//    }
+//
+//    public void getIncomeHistory() {
+//        mViewModel.getMonthIncomeHistory(selectedMonth).observe(getViewLifecycleOwner(), new Observer<List<History>>() {
+//            @Override
+//            public void onChanged(List<History> histories) {
+//                adapter.setHistory(histories);
+//            }
+//        });
+//    }
 
 }
