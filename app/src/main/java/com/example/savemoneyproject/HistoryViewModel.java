@@ -8,39 +8,41 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 public class HistoryViewModel extends AndroidViewModel {
 
     private HistoryRepository mRepository;
 
-    private LiveData<List<History>> mAllHistory;
-    private LiveData<List<History>> mTodayHistory;
-    private LiveData<Integer> getIncomeTotal;
-    private LiveData<Integer> getCostTotal;
+    private Flowable<List<History>> mAllHistory;
+    private Flowable<List<History>> mTodayHistory;
+    private Flowable<Integer> getIncomeTotal;
+    private Flowable<Integer> getCostTotal;
 
     public HistoryViewModel(@NonNull Application application) {
         super(application);
         mRepository = new HistoryRepository(application);
-        mAllHistory = mRepository.getAllHistory();
+//        mAllHistory = mRepository.getAllHistory();
         mTodayHistory = mRepository.getTodayHistory();
         getIncomeTotal = mRepository.getIncomeTotal();
         getCostTotal = mRepository.getCostTotal();
     }
 
-    LiveData<List<History>> getAllHistory() {
-        return mAllHistory;
-    }
+//    Flowable<List<History>> getAllHistory() {
+//        return mAllHistory;
+//    }
 
-    LiveData<List<History>> getTodayHistory() {
+    Flowable<List<History>> getTodayHistory() {
         return mTodayHistory;
     }
 
-    LiveData<List<History>> getSelectedDateHistory(String date) {
+    Flowable<List<History>> getSelectedDateHistory(String date) {
         return mRepository.getSelectedDateHistory(date);
     }
 
-    LiveData<Integer> getIncomeTotal() { return getIncomeTotal; }
+    Flowable<Integer> getIncomeTotal() { return getIncomeTotal; }
 
-    LiveData<Integer> getCostTotal() {
+    Flowable<Integer> getCostTotal() {
         return getCostTotal;
     }
 

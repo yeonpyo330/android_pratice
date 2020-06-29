@@ -38,6 +38,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.functions.Action;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -194,40 +199,66 @@ public class MainActivity extends AppCompatActivity {
         costView = (TextView) findViewById(R.id.cost_money);
         balanceView = (TextView) findViewById(R.id.balance_money);
 
-        mHistoryViewModel.getIncomeTotal().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                incomeView.setText(String.valueOf(integer));
-                income = integer;
-                balanceView.setText(String.valueOf(income - cost));
-            }
-        });
+//        mHistoryViewModel.getIncomeTotal().observe(this, new Observer<Integer>() {
+//            @Override
+//            public void onChanged(Integer integer) {
+//                incomeView.setText(String.valueOf(integer));
+//                income = integer;
+//                balanceView.setText(String.valueOf(income - cost));
+//            }
+//        });
 
-        mHistoryViewModel.getCostTotal().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                costView.setText(String.valueOf(integer));
-                cost = integer;
-                balanceView.setText(String.valueOf(income - cost));
-            }
-        });
+        mHistoryViewModel.getIncomeTotal()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                               @Override
+                               public void accept(Integer integer) throws Exception {
+                                   incomeView.setText(String.valueOf(integer));
+                                   income = integer;
+                                   balanceView.setText(String.valueOf(income - cost));
+                               }
+                           }
+                );
+
+//        mHistoryViewModel.getCostTotal().observe(this, new Observer<Integer>() {
+//            @Override
+//            public void onChanged(Integer integer) {
+//                costView.setText(String.valueOf(integer));
+//                cost = integer;
+//                balanceView.setText(String.valueOf(income - cost));
+//            }
+//        });
+
+        mHistoryViewModel.getCostTotal()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                               @Override
+                               public void accept(Integer integer) throws Exception {
+                                   costView.setText(String.valueOf(integer));
+                                   cost = integer;
+                                   balanceView.setText(String.valueOf(income - cost));
+                               }
+                           }
+                );
 
 
-        if (selectedDate.equals(mTodayDate)) {
-            mHistoryViewModel.getTodayHistory().observe(this, new Observer<List<History>>() {
-                @Override
-                public void onChanged(@Nullable final List<History> histories) {
-                    adapter.setHistory(histories);
-                }
-            });
-        } else {
-            mHistoryViewModel.getSelectedDateHistory(sendDate()).observe(this, new Observer<List<History>>() {
-                @Override
-                public void onChanged(@Nullable final List<History> histories) {
-                    adapter.setHistory(histories);
-                }
-            });
-        }
+//        if (selectedDate.equals(mTodayDate)) {
+//            mHistoryViewModel.getTodayHistory().observe(this, new Observer<List<History>>() {
+//                @Override
+//                public void onChanged(@Nullable final List<History> histories) {
+//                    adapter.setHistory(histories);
+//                }
+//            });
+//        } else {
+//            mHistoryViewModel.getSelectedDateHistory(sendDate()).observe(this, new Observer<List<History>>() {
+//                @Override
+//                public void onChanged(@Nullable final List<History> histories) {
+//                    adapter.setHistory(histories);
+//                }
+//            });
+//        }
 
     }
 

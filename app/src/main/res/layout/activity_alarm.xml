@@ -36,13 +36,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:id="@+id/start_serice"
+            android:id="@+id/start_service"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Start"/>
         <Button
-            android:id="@+id/stop_serice"
+            android:id="@+id/stop_service"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
