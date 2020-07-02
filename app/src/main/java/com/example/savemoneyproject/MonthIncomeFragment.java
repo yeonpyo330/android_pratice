@@ -39,8 +39,8 @@ public class MonthIncomeFragment extends Fragment {
         selectedMonth = ((MonthlyActivity) getActivity()).sendMonth();
         if (selectedMonth != null) {
             setAdapter();
-//            getIncomeTotal();
-//            getIncomeHistory();
+            getIncomeTotal();
+            getIncomeHistory();
         }
     }
 
@@ -52,22 +52,22 @@ public class MonthIncomeFragment extends Fragment {
         monthIncomeBinding.incomeRecyclerview.setLayoutManager(mManager); }
 
 
-//    public void getIncomeTotal(){
-//        mViewModel.getMonthlyIncomeTotal(selectedMonth).observe(getViewLifecycleOwner(), new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer integer) {
-//                monthIncomeBinding.incomeTotal.setText(String.valueOf(integer));
-//            }
-//        });
-//    }
-//
-//    public void getIncomeHistory() {
-//        mViewModel.getMonthIncomeHistory(selectedMonth).observe(getViewLifecycleOwner(), new Observer<List<History>>() {
-//            @Override
-//            public void onChanged(List<History> histories) {
-//                adapter.setHistory(histories);
-//            }
-//        });
-//    }
+    public void getIncomeTotal(){
+        mViewModel.getMonthlyIncomeTotal(selectedMonth).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                monthIncomeBinding.incomeTotal.setText(String.valueOf(integer));
+            }
+        });
+    }
+
+    public void getIncomeHistory() {
+        mViewModel.getMonthIncomeHistory(selectedMonth).observe(getViewLifecycleOwner(), new Observer<List<History>>() {
+            @Override
+            public void onChanged(List<History> histories) {
+                adapter.setHistory(histories);
+            }
+        });
+    }
 
 }

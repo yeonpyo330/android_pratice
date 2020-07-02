@@ -8,16 +8,17 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 
 public class HistoryViewModel extends AndroidViewModel {
 
     private HistoryRepository mRepository;
 
-    private Flowable<List<History>> mAllHistory;
-    private Flowable<List<History>> mTodayHistory;
-    private Flowable<Integer> getIncomeTotal;
-    private Flowable<Integer> getCostTotal;
+    private LiveData<List<History>> mAllHistory;
+    private LiveData<List<History>> mTodayHistory;
+    private LiveData<Integer> getIncomeTotal;
+    private LiveData<Integer> getCostTotal;
 
     public HistoryViewModel(@NonNull Application application) {
         super(application);
@@ -28,31 +29,30 @@ public class HistoryViewModel extends AndroidViewModel {
         getCostTotal = mRepository.getCostTotal();
     }
 
+
 //    Flowable<List<History>> getAllHistory() {
 //        return mAllHistory;
 //    }
 
-    Flowable<List<History>> getTodayHistory() {
+    LiveData<List<History>> getTodayHistory() {
         return mTodayHistory;
     }
 
-    Flowable<List<History>> getSelectedDateHistory(String date) {
+    LiveData<List<History>> getSelectedDateHistory(String date) {
         return mRepository.getSelectedDateHistory(date);
     }
 
-    Flowable<Integer> getIncomeTotal() { return getIncomeTotal; }
+    LiveData<Integer> getIncomeTotal() { return getIncomeTotal; }
 
-    Flowable<Integer> getCostTotal() {
+    LiveData<Integer> getCostTotal() {
         return getCostTotal;
     }
 
-    public void insertHistory(History history) {
-        mRepository.insertHistory(history);
+    public Completable insertHistory(History history) {
+        return mRepository.insertHistory(history);
     }
 
     public void deleteAll() {
         mRepository.deleteAll();
     }
 }
-
-

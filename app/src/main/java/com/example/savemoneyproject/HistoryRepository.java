@@ -14,10 +14,10 @@ import io.reactivex.rxjava3.core.Flowable;
 public class HistoryRepository {
 
     private HistoryDao mHistoryDao;
-    private Flowable<List<History>> mAllHistory;
-    private Flowable<List<History>> mTodayHistory;
-    private Flowable<Integer> incomeTotal;
-    private Flowable<Integer> costTotal;
+    private LiveData<List<History>> mAllHistory;
+    private LiveData<List<History>> mTodayHistory;
+    private LiveData<Integer> incomeTotal;
+    private LiveData<Integer> costTotal;
 
     HistoryRepository(Application application) {
         AppDataBase db = AppDataBase.getDatabase(application);
@@ -33,34 +33,34 @@ public class HistoryRepository {
 //        return mAllHistory;
 //    }
 
-    Flowable<List<History>> getTodayHistory() {
+    LiveData<List<History>> getTodayHistory() {
         return mTodayHistory;
     }
 
-    Flowable<List<History>> getSelectedDateHistory(String date) {
+    LiveData<List<History>> getSelectedDateHistory(String date) {
         return mHistoryDao.getSelectedDateHistory(date);
     }
 
-    Flowable<List<History>> getMonthIncomeHistory(String date) {
+    LiveData<List<History>> getMonthIncomeHistory(String date) {
         return mHistoryDao.getSelectedMonthIncomeHistory(date);
     }
 
-    Flowable<List<History>> getMonthCostHistory(String date) {
+    LiveData<List<History>> getMonthCostHistory(String date) {
         return mHistoryDao.getSelectedMonthCostHistory(date);
     }
 
 
-    Flowable<Integer> getMonthlyIncomeTotal(String date) {
+    LiveData<Integer> getMonthlyIncomeTotal(String date) {
         return mHistoryDao.getMonthlyIncomeTotal(date);
     }
 
-    Flowable<Integer> getMonthlyCostTotal(String date) {
+    LiveData<Integer> getMonthlyCostTotal(String date) {
         return mHistoryDao.getMonthlyCostTotal(date);
     }
 
-    Flowable<Integer> getIncomeTotal() { return incomeTotal; }
+    LiveData<Integer> getIncomeTotal() { return incomeTotal; }
 
-    Flowable<Integer> getCostTotal() {
+    LiveData<Integer> getCostTotal() {
         return costTotal;
     }
 
@@ -69,18 +69,14 @@ public class HistoryRepository {
 //        new insertAsyncTask(mHistoryDao).execute(history);
 //    }
 
-    public Completable insertHistory (History history) {
-    return mHistoryDao.insertHistory(history);
+    public Completable insertHistory(History history) {
+        return mHistoryDao.insertHistory(history);
     }
 
 
     public void deleteAll() {
         mHistoryDao.deleteAll();
     }
-
-//    public void deleteAll() {
-//        new deleteAllHistoryAsyncTask(mHistoryDao).execute();
-//    }
 
 
     //todo : AsyncTask is deprecated since API30. Please replace AsyncTask with other asynchronous task
@@ -101,17 +97,17 @@ public class HistoryRepository {
 //        }
 //    }
 
-    private static class deleteAllHistoryAsyncTask extends AsyncTask<Void, Void, Void> {
-        private HistoryDao mAsyncTaskDao;
-
-        deleteAllHistoryAsyncTask(HistoryDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            mAsyncTaskDao.deleteAll();
-            return null;
-        }
-    }
+//    private static class deleteAllHistoryAsyncTask extends AsyncTask<Void, Void, Void> {
+//        private HistoryDao mAsyncTaskDao;
+//
+//        deleteAllHistoryAsyncTask(HistoryDao dao) {
+//            mAsyncTaskDao = dao;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+//            mAsyncTaskDao.deleteAll();
+//            return null;
+//        }
+//    }
 }

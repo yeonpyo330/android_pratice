@@ -48,8 +48,8 @@ public class MonthCostFragment extends Fragment {
         selectedMonth = ((MonthlyActivity)getActivity()).sendMonth();
         if (selectedMonth != null){
             setAdapter();
-//            getCostTotal();
-//            getCostHistory();
+            getCostTotal();
+            getCostHistory();
         }
     }
 
@@ -60,22 +60,22 @@ public class MonthCostFragment extends Fragment {
         monthCostBinding.costRecyclerview.setLayoutManager(mManager);
     }
 
-//    public void getCostTotal() {
-//        mViewModel.getMonthlyCostTotal(selectedMonth).observe(getViewLifecycleOwner() ,new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer integer) {
-//                monthCostBinding.costTotal.setText(String.valueOf(integer));
-//            }
-//        });
-//    }
-//
-//    public void getCostHistory() {
-//
-//        mViewModel.getMonthCostHistory(selectedMonth).observe(getViewLifecycleOwner(), new Observer<List<History>>() {
-//            @Override
-//            public void onChanged(List<History> histories) {
-//                adapter.setHistory(histories);
-//            }
-//        });
-//    }
+    public void getCostTotal() {
+        mViewModel.getMonthlyCostTotal(selectedMonth).observe(getViewLifecycleOwner() ,new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                monthCostBinding.costTotal.setText(String.valueOf(integer));
+            }
+        });
+    }
+
+    public void getCostHistory() {
+
+        mViewModel.getMonthCostHistory(selectedMonth).observe(getViewLifecycleOwner(), new Observer<List<History>>() {
+            @Override
+            public void onChanged(List<History> histories) {
+                adapter.setHistory(histories);
+            }
+        });
+    }
 }
