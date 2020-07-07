@@ -101,8 +101,7 @@ public class MainActivity extends AppCompatActivity {
         getIncomeTotal();
         getCostTotal();
 
-        Button monthly_history_btn = findViewById(R.id.monthly_history_button);
-        monthly_history_btn.setOnClickListener(new View.OnClickListener() {
+        contentMainBinding.monthlyHistoryButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -246,11 +245,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             History history = new History(selectedDate + "  " + actionType + "  " + money + " ¥ ", moneyInt, actionType, selectedDate);
-            compositeDisposable.add(mHistoryViewModel.insertHistory(history)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe());
-//            mHistoryViewModel.insertHistory(history);
+//            compositeDisposable.add(mHistoryViewModel.insertHistory(history)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe());
+            mHistoryViewModel.insertHistory(history);
 
         } else {
             Toast.makeText(getApplicationContext(), "not saved", Toast.LENGTH_LONG).show();

@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import com.example.savemoneyproject.databinding.ActivityMonthlyBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.whiteelephant.monthpicker.MonthPickerDialog;
 import java.util.Calendar;
@@ -16,18 +16,25 @@ public class MonthlyActivity extends AppCompatActivity {
 
     private FragmentTransaction transaction;
     private FragmentManager fragmentManager;
-    private TextView yearMonth;
-    private int year, month; // todo : avoid using static value
+    private MonthIncomeFragment monthIncomeFragment;
+    private MonthCostFragment monthCostFragment;
+    private ActivityMonthlyBinding activityMonthlyBinding;
+    private int year, month; // todo : avoid using static value -> Resolved
     private String selectedMonth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_monthly);
+        activityMonthlyBinding = ActivityMonthlyBinding.inflate(getLayoutInflater());
+        View view = activityMonthlyBinding.getRoot();
+        setContentView(view);
+
+        monthIncomeFragment = new MonthIncomeFragment();
+        monthCostFragment = new MonthCostFragment();
+
         setDefaultFragment();
-        BottomNavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        activityMonthlyBinding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -38,15 +45,15 @@ public class MonthlyActivity extends AppCompatActivity {
             fragmentManager = getSupportFragmentManager();
             transaction = fragmentManager.beginTransaction();
 
-            // todo : avoid creating a instance everytime
+            // todo : avoid creating a instance everytime -> Resolved
             switch (item.getItemId()) {
                 case R.id.navigation_Income:
-                    transaction.replace(R.id.content, new MonthIncomeFragment());
+                    transaction.replace(R.id.content, monthIncomeFragment);
                     transaction.commit();
                     return true;
 
                 case R.id.navigation_Cost:
-                    transaction.replace(R.id.content, new MonthCostFragment());
+                    transaction.replace(R.id.content, monthCostFragment);
                     transaction.commit();
                     return true;
             }
@@ -63,13 +70,12 @@ public class MonthlyActivity extends AppCompatActivity {
 
 
     public void btnMonthYear(View view) {
-        yearMonth = findViewById(R.id.year_month);
         final Calendar today = Calendar.getInstance();
         MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(MonthlyActivity.this,
                 new MonthPickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(int selectedMonth, int selectedYear) {
-                        yearMonth.setText("Selected Month : " + selectedYear + " / " + (selectedMonth + 1));
+                        activityMonthlyBinding.yearMonth.setText("Selected Month : " + selectedYear + " / " + (selectedMonth + 1));
                     }
                 }, today.get(Calendar.YEAR), today.get(Calendar.MONTH));
 
@@ -104,10 +110,9 @@ public class MonthlyActivity extends AppCompatActivity {
         } else if (month >= 10) {
             selectedMonth = ("" + year + "" + month);
         }
-
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.content, new MonthIncomeFragment());
+        transaction.replace(R.id.content, monthIncomeFragment);
         transaction.commit();
     }
 

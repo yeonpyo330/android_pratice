@@ -8,19 +8,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.example.savemoneyproject.databinding.MonthIncomeFragmentBinding;
-
 import java.util.List;
 
 public class MonthIncomeFragment extends Fragment {
 
-    private MonthIncomeViewModel mViewModel;
+    private MonthHistoryViewModel mViewModel;
     private MyAdapter adapter;
     private MonthIncomeFragmentBinding monthIncomeBinding;
     private String selectedMonth;
@@ -35,7 +31,7 @@ public class MonthIncomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MonthIncomeViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MonthHistoryViewModel.class);
         selectedMonth = ((MonthlyActivity) getActivity()).sendMonth();
         if (selectedMonth != null) {
             setAdapter();
@@ -44,7 +40,7 @@ public class MonthIncomeFragment extends Fragment {
         }
     }
 
-    // todo : separate setting and update logic
+    // todo : separate setting and update logic -> Resolved
     public void setAdapter() {
         adapter = new MyAdapter(getActivity());
         monthIncomeBinding.incomeRecyclerview.setAdapter(adapter);

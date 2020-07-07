@@ -9,10 +9,10 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 import io.reactivex.rxjava3.core.Flowable;
 
-public class MonthCostViewModel extends AndroidViewModel {
+public class MonthHistoryViewModel extends AndroidViewModel {
     private HistoryRepository mRepository;
 
-    public MonthCostViewModel(@NonNull Application application) {
+    public MonthHistoryViewModel(@NonNull Application application) {
         super(application);
         mRepository = new HistoryRepository(application);
     }
@@ -22,7 +22,17 @@ public class MonthCostViewModel extends AndroidViewModel {
         return mRepository.getMonthlyCostTotal(date);
     }
 
+    LiveData<Integer> getMonthlyIncomeTotal(String date) {
+        return mRepository.getMonthlyIncomeTotal(date);
+    }
+
     LiveData<List<History>> getMonthCostHistory(String date) {
         return mRepository.getMonthCostHistory(date);
     }
+
+    LiveData<List<History>> getMonthIncomeHistory(String date) {
+        return mRepository.getMonthIncomeHistory(date);
+    }
+
+
 }

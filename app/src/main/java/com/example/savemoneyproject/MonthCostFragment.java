@@ -2,37 +2,26 @@ package com.example.savemoneyproject;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.example.savemoneyproject.databinding.MonthCostFragmentBinding;
-
 import java.util.List;
 
 // todo : monthlycost fragment && monthincomefragment -> view are identical
 // todo : please consider abstract class or find a way to merge it
 public class MonthCostFragment extends Fragment {
 
-    private MonthCostViewModel mViewModel;
+    private MonthHistoryViewModel mViewModel;
     private MyAdapter adapter;
     private MonthCostFragmentBinding monthCostBinding;
     private String selectedMonth;
-
-
-    public static MonthCostFragment newInstance() {
-        return new MonthCostFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -44,7 +33,7 @@ public class MonthCostFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MonthCostViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MonthHistoryViewModel.class);
         selectedMonth = ((MonthlyActivity)getActivity()).sendMonth();
         if (selectedMonth != null){
             setAdapter();
