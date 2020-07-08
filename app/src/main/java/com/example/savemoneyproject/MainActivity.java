@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         View view = contentMainBinding.getRoot();
         setContentView(view);
 
+        adapter = new MyAdapter(this);
+
         // todo : please get the data based on the user's current location using gps
         getCurrentWeatherData("Tokyo");
 
@@ -177,14 +179,12 @@ public class MainActivity extends AppCompatActivity {
 
     //  Set adapter to recyclerview
     public void setAdapter() {
-        RecyclerView recyclerView = findViewById(R.id.recyclerviewOne);
 
         // todo : create a new instance everytime it is called might leak memory -> Resolved
         // todo : please consider separating setting the view part and update logic -> Resolved
-        adapter = new MyAdapter(this);
-        recyclerView.setAdapter(adapter);
+        contentMainBinding.recyclerviewOne.setAdapter(adapter);
         mManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mManager);
+        contentMainBinding.recyclerviewOne.setLayoutManager(mManager);
     }
 
 

@@ -27,6 +27,7 @@ public class MonthCostFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         monthCostBinding = MonthCostFragmentBinding.inflate(inflater, container,false);
+        adapter = new MyAdapter(getActivity());
         return monthCostBinding.getRoot();
     }
 
@@ -43,7 +44,6 @@ public class MonthCostFragment extends Fragment {
     }
 
     public void setAdapter() {
-        adapter = new MyAdapter(getActivity());
         monthCostBinding.costRecyclerview.setAdapter(adapter);
         RecyclerView.LayoutManager mManager = new LinearLayoutManager(getActivity());
         monthCostBinding.costRecyclerview.setLayoutManager(mManager);

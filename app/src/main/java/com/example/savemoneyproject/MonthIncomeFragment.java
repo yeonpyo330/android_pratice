@@ -25,6 +25,7 @@ public class MonthIncomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         monthIncomeBinding = MonthIncomeFragmentBinding.inflate(inflater,container,false);
+        adapter = new MyAdapter(getActivity());
         return monthIncomeBinding.getRoot();
     }
 
@@ -42,7 +43,6 @@ public class MonthIncomeFragment extends Fragment {
 
     // todo : separate setting and update logic -> Resolved
     public void setAdapter() {
-        adapter = new MyAdapter(getActivity());
         monthIncomeBinding.incomeRecyclerview.setAdapter(adapter);
         RecyclerView.LayoutManager mManager = new LinearLayoutManager(getActivity());
         monthIncomeBinding.incomeRecyclerview.setLayoutManager(mManager); }
