@@ -42,7 +42,7 @@ public interface HistoryDao {
     @Query("SELECT * FROM history_table WHERE type = 'Cost' and date like :month||'%'")
     LiveData<List<History>> getSelectedMonthCostHistory(String month);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict =  OnConflictStrategy.REPLACE)
     Completable insertHistory(History history);
 
     @Query("DELETE FROM history_table")

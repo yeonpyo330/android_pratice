@@ -245,11 +245,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             History history = new History(selectedDate + "  " + actionType + "  " + money + " ¥ ", moneyInt, actionType, selectedDate);
-//            compositeDisposable.add(mHistoryViewModel.insertHistory(history)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe());
-            mHistoryViewModel.insertHistory(history);
+            compositeDisposable.add(mHistoryViewModel.insertHistory(history)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe());
+//            mHistoryViewModel.insertHistory(history);
 
         } else {
             Toast.makeText(getApplicationContext(), "not saved", Toast.LENGTH_LONG).show();
